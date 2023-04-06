@@ -8,7 +8,7 @@ export default {
       blue: "#8BA49D",
       black: "#222222",
       white: "#F5EDE3",
-      Pink: "#EECCC5",
+      pink: "#EECCC5",
     },
     extend: {},
   },
