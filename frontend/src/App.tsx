@@ -1,7 +1,6 @@
 import React from 'react';
-import './App.css';
 
-import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const LandingPage = React.lazy(() => import('./pages/LandingPage'));
 const Page404 = React.lazy(() => import('./pages/Page404'));

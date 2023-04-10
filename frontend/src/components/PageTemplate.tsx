@@ -4,17 +4,17 @@ import BottomNav from './BottomNav';
 
 type Props = {
     children: React.ReactNode;
-    showHeader?: boolean;
+    showBottomNav?: boolean;
   };
   
-const PageTemplate = ({ children, showHeader = true }: Props) => (
+const PageTemplate = ({ children, showBottomNav = true }: Props) => (
     <>
       <Helmet>
         <title>Partnr</title>
         <meta name="description" content="Partnr UNSW Group Finder" />
         <meta name="keywords" content="partnr, unsw, csesoc, course, groups, partners" />
       </Helmet>
-      {showHeader && <BottomNav />}
+      {showBottomNav && <BottomNav />}
       <div>
         {children}
       </div>
