@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .bottom-navbar-icon {
+        @apply float-right block px-[14px] py-[16px]
+    }
+}
