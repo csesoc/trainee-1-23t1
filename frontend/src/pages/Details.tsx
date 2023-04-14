@@ -13,11 +13,12 @@ function Details () {
             <input type="number" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="1"></input>
             <label className="text-sm mt-4">WAM (optional)</label>
             <select className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Confirm your password">
-                <option value="HD">HD</option>
-                <option value="HD">DN</option>
-                <option value="HD">CR</option>
-                <option value="HD">PS</option>
-                <option value="HD">FL</option>
+              <option value="HD">none</option>
+              <option value="HD">HD</option>
+              <option value="HD">DN</option>
+              <option value="HD">CR</option>
+              <option value="HD">PS</option>
+              <option value="HD">FL</option>
             </select>
             <label className="text-sm mt-4">MBTI (optional)</label>
             <input type="text" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Your personality type"></input>
