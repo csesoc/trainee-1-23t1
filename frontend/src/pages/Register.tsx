@@ -5,7 +5,9 @@ function Register () {
   const navToLogin = () => {
     navigate('/admin/auth/login');
   }
-
+  const navToDetails = () => {
+    navigate('/admin/auth/details');
+  }
   return (
     <div className="container flex justify-center items-center min-h-screen bg-theme-yellow">
       <div className="container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white">
@@ -13,16 +15,16 @@ function Register () {
         <br />
         <form>
           <div className="container flex items-start flex-col">
-            <p className="text-sm">Email</p>
+            <label className="text-sm">Email</label>
             <input type="email" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Enter your email"></input>
             <br />
-            <p className="text-sm">Password</p>
+            <label className="text-sm">assword</label>
             <input type="password" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Enter your password"></input>
             <br />
-            <p className="text-sm">Confirm Password</p>
+            <label className="text-sm">Confirm Password</label>
             <input type="password" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Confirm your password"></input>
             <br />
-            <button className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]">
+            <button className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]" onClick={navToDetails}>
               <p className="font-bold">Register</p>
             </button> 
           </div>

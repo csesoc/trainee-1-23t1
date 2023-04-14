@@ -13,10 +13,10 @@ function Login () {
         <br />
         <form>
           <div className="container flex items-start flex-col">
-            <p className="text-sm">Email</p>
+            <label className="text-sm">Email</label>
             <input type="email" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Enter your email"></input>
             <br />
-            <p className="text-sm">Password</p>
+            <label className="text-sm">Password</label>
             <input type="password" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Enter your password"></input>
             <br />
             <button className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]">
