@@ -8,11 +8,11 @@ function Details () {
         <form>
           <div className="container flex items-start flex-col text-left">
             <label className="text-sm">Degree</label>
-            <input type="text" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="What do you study?"></input>
+            <input type="text" className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="What do you study?"></input>
             <label className="text-sm mt-4">Year of Study</label>
-            <input type="number" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="1"></input>
+            <input type="number" className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="1"></input>
             <label className="text-sm mt-4">WAM (optional)</label>
-            <select className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Confirm your password">
+            <select className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Confirm your password">
               <option value="HD">none</option>
               <option value="HD">HD</option>
               <option value="HD">DN</option>
@@ -21,7 +21,7 @@ function Details () {
               <option value="HD">FL</option>
             </select>
             <label className="text-sm mt-4">MBTI (optional)</label>
-            <input type="text" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Your personality type"></input>
+            <input type="text" className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Your personality type"></input>
             <p className="text-xs mt-2">Your Myers-Brigg personality type. This will be used to measure compatability across possible partners. 
               <a className="text-xs text-theme-blue" href="https://www.16personalities.com/" target="_blank"> Take the quiz here!</a>  
             </p>

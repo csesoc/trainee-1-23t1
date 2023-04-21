@@ -1,9 +1,37 @@
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 function Login () {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const navigate = useNavigate();
+  
   const navToRegister = () => {
     navigate('/admin/auth/register');
+  }
+
+  const onSubmit = () => {
+    if (email && password) {
+      console.log("yay");
+      // submit(email, password);
+    }
+  }
+
+  const checkEmail = () => {
+    const input = document.getElementById('email-input');
+    if (!RegExp('^.+\@.+\..+$').test(email)) {
+      if (input) {
+        console.log("hello");
+        input.classList.remove('border-green-700');
+        input.classList.add('border', 'border-red-500');
+      }
+    } else {
+      if (input) {
+        console.log("hello");
+        input.classList.remove('border-red-500');
+        input.classList.add('border', 'border-green-700');
+      }
+    }
   }
 
   return (
@@ -14,12 +42,23 @@ function Login () {
         <form>
           <div className="container flex items-start flex-col">
             <label className="text-sm">Email</label>
-            <input type="email" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Enter your email"></input>
+            <input 
+              id="email-input"
+              type="email" 
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0" 
+              placeholder="Enter your email"
+              onChange={e => setEmail(e.target.value)}
+              onBlur={checkEmail} />  
             <br />
             <label className="text-sm">Password</label>
-            <input type="password" className="form-input w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" placeholder="Enter your password"></input>
+            <input 
+              type="password"
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+              placeholder="Enter your password"
+              onChange={e => setPassword(e.target.value)}>
+            </input>
             <br />
-            <button className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]">
+            <button type="submit" className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]" onClick={onSubmit}>
               <p className="font-bold">Login</p>
             </button> 
           </div>
