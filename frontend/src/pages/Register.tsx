@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import PageTemplate from '../components/PageTemplate';
 import React from 'react';
 
 function Register () {
@@ -59,50 +60,52 @@ function Register () {
   }
 
   return (
-    <div className="container flex justify-center items-center min-h-screen bg-theme-yellow">
-      <div className="container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white">
-        <p className="font-bold text-3xl">Register</p>
-        <br />
-        <form>
-          <div className="container flex items-start flex-col">
-            <label className="text-sm">Email</label>
-            <input 
-              id="email-input"
-              type="email"
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-              placeholder="Enter your email"
-              onChange={e => setEmail(e.target.value)}
-              onBlur={checkEmail}/>
-            <br />
-            <label className="text-sm">Password</label>
-            <input 
-              id="password-input"
-              type="password"
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-              placeholder="Enter your password"
-              onChange={e => setPassword(e.target.value)}/>
-            <br />
-            <label className="text-sm">Confirm Password</label>
-            <input
-              id="confirm-pass-input"
-              type="password"
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-              placeholder="Confirm your password"
-              onChange={e => setConfirmPass(e.target.value)}
-              onBlur={checkPasswords}/>
-            <br />
-            <button type="submit" className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]" onClick={onSubmit}>
-              <p className="font-bold">Register</p>
-            </button> 
+    <PageTemplate showBottomNav={false}>
+      <div className="container flex justify-center items-center min-h-screen bg-theme-yellow">
+        <div className="container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white">
+          <p className="font-bold text-3xl">Register</p>
+          <br />
+          <form>
+            <div className="container flex items-start flex-col">
+              <label className="text-sm">Email</label>
+              <input
+                id="email-input"
+                type="email"
+                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+                placeholder="Enter your email"
+                onChange={e => setEmail(e.target.value)}
+                onBlur={checkEmail}/>
+              <br />
+              <label className="text-sm">Password</label>
+              <input
+                id="password-input"
+                type="password"
+                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+                placeholder="Enter your password"
+                onChange={e => setPassword(e.target.value)}/>
+              <br />
+              <label className="text-sm">Confirm Password</label>
+              <input
+                id="confirm-pass-input"
+                type="password"
+                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+                placeholder="Confirm your password"
+                onChange={e => setConfirmPass(e.target.value)}
+                onBlur={checkPasswords}/>
+              <br />
+              <button type="submit" className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]" onClick={onSubmit}>
+                <p className="font-bold">Register</p>
+              </button>
+            </div>
+          </form>
+          <br />
+          <div className="flex flex-col justify-center items-center">
+            <p className="font-bold text-sm mb-2">Already a member?</p>
+            <button className="font-bold text-sm text-theme-blue hover:underline" onClick={navToLogin}>Login</button>
           </div>
-        </form>
-        <br />
-        <div className="flex flex-col justify-center">
-          <p className="font-bold text-sm mb-2">Already a member?</p>
-          <button className="font-bold text-sm text-theme-blue hover:underline" onClick={navToLogin}>Login</button>
         </div>
       </div>
-    </div>
+    </PageTemplate>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import PageTemplate from '../components/PageTemplate';
 
 function Login () {
   const [email, setEmail] = React.useState('');
@@ -35,41 +36,43 @@ function Login () {
   }
 
   return (
-    <div className="container flex justify-center items-center min-h-screen bg-theme-yellow">
-      <div className="container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white">
-        <p className="font-bold text-3xl">Login</p>
-        <br />
-        <form>
-          <div className="container flex items-start flex-col">
-            <label className="text-sm">Email</label>
-            <input 
-              id="email-input"
-              type="email" 
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0" 
-              placeholder="Enter your email"
-              onChange={e => setEmail(e.target.value)}
-              onBlur={checkEmail} />  
-            <br />
-            <label className="text-sm">Password</label>
-            <input 
-              type="password"
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-              placeholder="Enter your password"
-              onChange={e => setPassword(e.target.value)}>
-            </input>
-            <br />
-            <button type="submit" className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]" onClick={onSubmit}>
-              <p className="font-bold">Login</p>
-            </button> 
+    <PageTemplate  showBottomNav={false}>
+      <div className='container flex justify-center items-center min-h-screen bg-theme-yellow'>
+        <div className='container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white'>
+          <p className='font-bold text-3xl'>Login</p>
+          <br />
+          <form>
+            <div className='container flex items-start flex-col'>
+              <label className='text-sm'>Email</label>
+              <input
+                id='email-input'
+                type='email'
+                className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
+                placeholder='Enter your email'
+                onChange={e => setEmail(e.target.value)}
+                onBlur={checkEmail} />
+              <br />
+              <label className='text-sm'>Password</label>
+              <input
+                type='password'
+                className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
+                placeholder='Enter your password'
+                onChange={e => setPassword(e.target.value)}>
+              </input>
+              <br />
+              <button type='submit' className='w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]' onClick={onSubmit}>
+                <p className='font-bold'>Login</p>
+              </button>
+            </div>
+          </form>
+          <br />
+          <div className='flex flex-col justify-center items-center'>
+            <p className='font-bold text-sm mb-2'>Not a member?</p>
+            <button className='font-bold text-sm text-theme-blue hover:underline' onClick={navToRegister}>Register</button>
           </div>
-        </form>
-        <br />
-        <div className="flex flex-col justify-center">
-          <p className="font-bold text-sm mb-2">Not a member?</p>
-          <button className="font-bold text-sm text-theme-blue hover:underline" onClick={navToRegister}>Register</button>
         </div>
       </div>
-    </div>
+    </PageTemplate>
   )
 }
 
