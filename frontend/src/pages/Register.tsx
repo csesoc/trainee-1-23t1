@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import PageTemplate from '../components/PageTemplate';
+import { auth } from '../firebase';
 import React from 'react';
 
 function Register () {
@@ -19,7 +21,7 @@ function Register () {
 
   const onSubmit = () => {
     if (validEmail && validPass) {
-      // submit(email, password);
+      createUserWithEmailAndPassword(auth, email, password);
       navToDetails();
     } else {
       if (!validEmail) alert("plox gib valid email");

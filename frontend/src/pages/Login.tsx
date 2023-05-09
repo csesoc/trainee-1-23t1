@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import React from 'react';
 import PageTemplate from '../components/PageTemplate';
 
@@ -11,10 +12,10 @@ function Login () {
     navigate('/admin/auth/register');
   }
 
+  const auth = getAuth();
   const onSubmit = () => {
     if (email && password) {
-      console.log("yay");
-      // submit(email, password);
+      signInWithEmailAndPassword(auth, email, password);
     }
   }
 
