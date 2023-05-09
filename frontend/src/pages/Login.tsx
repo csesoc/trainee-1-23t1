@@ -12,10 +12,20 @@ function Login () {
     navigate('/admin/auth/register');
   }
 
+  const login = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log('logged');
+    } catch (e) {
+      alert(e);
+    }
+  };
+
   const auth = getAuth();
   const onSubmit = () => {
     if (email && password) {
-      signInWithEmailAndPassword(auth, email, password);
+      login(email, password);
+      navigate('/');
     }
   }
 

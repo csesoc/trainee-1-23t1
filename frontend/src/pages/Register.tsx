@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import PageTemplate from '../components/PageTemplate';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import React from 'react';
 
+import {
+  collection,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
+
 function Register () {
+  const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPass, setConfirmPass] = React.useState('');
@@ -18,10 +25,33 @@ function Register () {
   const navToDetails = () => {
     navigate('/admin/auth/details');
   }
+    // Adds a new user to firebase.
+  const register = async (email: string, password: string) => {
+    try {
+      // Register user
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      const user = userCredentials.user;
+
+      // Add user to database
+      const usersRef = collection(db, 'users');
+      await setDoc(doc(usersRef, `${user.uid}`), {
+        name: name,
+        email: user.email,
+        partners: [],
+      });
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   const onSubmit = () => {
     if (validEmail && validPass) {
-      createUserWithEmailAndPassword(auth, email, password);
+      register(email, password);
       navToDetails();
     } else {
       if (!validEmail) alert("plox gib valid email");
@@ -69,6 +99,14 @@ function Register () {
           <br />
           <form>
             <div className="container flex items-start flex-col">
+              <label className="text-sm">Name</label>
+              <input
+                id="name-input"
+                type="text"
+                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+                placeholder="Enter your name"
+                onChange={e => setName(e.target.value)}/>
+              <br />
               <label className="text-sm">Email</label>
               <input
                 id="email-input"
