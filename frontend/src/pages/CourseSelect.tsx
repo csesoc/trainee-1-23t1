@@ -19,6 +19,11 @@ function CourseSelect() {
          courseId: 'COMP1531',
          courseDesc: 'Software Fundamentals',
          numOfStudents: 100
+      },
+      {
+         courseId: 'COMP1521',
+         courseDesc: 'Computer Fundamentals',
+         numOfStudents: 100
       }
    ]
 
@@ -34,7 +39,7 @@ function CourseSelect() {
 
    return (
       <PageTemplate showBottomNav={true}>
-         <div className='container flex flex-col justify-center items-center min-h-screen bg-theme-yellow'>
+         <div className='container flex flex-col justify-center items-center min-h-screen pt-10 bg-theme-yellow'>
             {listCourses}
          </div>
       </PageTemplate>
