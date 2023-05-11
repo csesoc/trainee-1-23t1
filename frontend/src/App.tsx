@@ -4,6 +4,7 @@ import Page404 from "./pages/Page404";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Details from './pages/Details';
+import CourseSelect from "./pages/CourseSelect";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path='/admin/auth/login' element={<Login/>} />
         <Route path='/admin/auth/register' element={<Register/>} />
         <Route path='/admin/auth/details' element={<Details/>} />
+        <Route path='/course-select' element={<CourseSelect/>} />
       </Routes>
     </Router>
   );
