@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Details from './pages/Details';
 import CourseSelect from "./pages/CourseSelect";
+import ListPartnrs from "./pages/ListPartnrs";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path='/admin/auth/register' element={<Register/>} />
         <Route path='/admin/auth/details' element={<Details/>} />
         <Route path='/courses' element={<CourseSelect/>} />
+        <Route path='/courses/:courseId/partnrs' element={<ListPartnrs />} />
       </Routes>
     </Router>
   );

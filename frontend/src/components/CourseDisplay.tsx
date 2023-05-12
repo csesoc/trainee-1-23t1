@@ -12,7 +12,7 @@ type Props = {
 function CourseDisplay({courseInfo}: Props) {
    const navigate = useNavigate();
    const navToCoursePage = () => {
-      navigate(`/courses/${courseInfo.courseId}`);
+      navigate(`/courses/${courseInfo.courseId}/partnrs`);
    }
 
    return (
