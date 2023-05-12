@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import PageTemplate from '../components/PageTemplate';
 import { auth, db } from '../firebase';
-import React from 'react';
+import { useState } from 'react';
 
 import {
   collection,
@@ -10,13 +10,14 @@ import {
   setDoc,
 } from 'firebase/firestore';
 
-function Register () {
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPass, setConfirmPass] = React.useState('');
-  const [validEmail, setValidEmail] = React.useState(false);
-  const [validPass, setValidPass] = React.useState(false);
+const Register = () => {
+  const [zid, setZid] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+  const [validName, setValidName] = useState(false);
+  const [validZid, setValidZid] = useState(false);
 
   const navigate = useNavigate();
   const navToLogin = () => {
@@ -41,6 +42,7 @@ function Register () {
       const usersRef = collection(db, 'users');
       await setDoc(doc(usersRef, `${user.uid}`), {
         name: name,
+        zid: zid,
         email: user.email,
         partners: [],
       });
@@ -50,98 +52,86 @@ function Register () {
   };
 
   const onSubmit = () => {
-    if (validEmail && validPass) {
+    if (validEmail && validName && validZid) {
       register(email, password);
       navToDetails();
     } else {
+      if (!validZid) alert("prisoner number required");
       if (!validEmail) alert("plox gib valid email");
-      if (!validPass) alert("passwords no matchy matchy :c")
+      if (!validName) alert("unfortunately, you must be named");
+    }
+  }
+
+  const checkZid = () => {
+    if (zid !== '') {
+      setValidZid(true);
+    }
+  }
+  
+  const checkName = () => {
+    if (name !== '') {
+      setValidName(true);
     }
   }
 
   const checkEmail = () => {
-    const input = document.getElementById('email-input');
-    if (input) {
-      if (!RegExp('^.+\@.+\..+$').test(email)) {
-        input.classList.remove('border-green-700');
-        input.classList.add('border', 'border-red-500');
-        setValidEmail(false);
-      } else {
-        input.classList.remove('border-red-500');
-        input.classList.add('border', 'border-green-700');
-        setValidEmail(true);
-     }
-    }
-  }
-
-  const checkPasswords = () => {
-    const input = document.getElementById("confirm-pass-input");
-    if (input) {
-      if (!(confirmPass === password) || (confirmPass === "")) {
-        console.log("not equal");
-        input.classList.remove('border-green-700');
-        input.classList.add('border', 'border-red-500');
-        setValidPass(false);
-      } else {
-        console.log("equal");
-        input.classList.remove('border-red-500');
-        input.classList.add('border', 'border-green-700');
-        setValidPass(true);
-      }
+    if (RegExp('^.+\@.+\..+$').test(email)) {
+      setValidEmail(true);
     }
   }
 
   return (
     <PageTemplate showBottomNav={false}>
-      <div className="container flex justify-center items-center min-h-screen bg-theme-yellow">
-        <div className="container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white">
-          <p className="font-bold text-3xl">Register</p>
+      <div className='container flex justify-center items-center min-h-screen bg-theme-yellow'>
+        <div className='container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white'>
+          <p className='font-bold text-3xl'>Register</p>
           <br />
           <form>
-            <div className="container flex items-start flex-col">
-              <label className="text-sm">Name</label>
+            <div className='container flex items-start flex-col'>
+              <label className='text-sm'>zID</label>
               <input
-                id="name-input"
-                type="text"
-                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-                placeholder="Enter your name"
-                onChange={e => setName(e.target.value)}/>
+                id='zid-input'
+                type='text'
+                className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
+                placeholder='your prisoner number'
+                onChange={e => setZid(e.target.value)}
+                onBlur={checkZid}/>
               <br />
-              <label className="text-sm">Email</label>
+              <label className='text-sm'>Username</label>
               <input
-                id="email-input"
-                type="email"
-                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-                placeholder="Enter your email"
+                id='name-input'
+                type='text'
+                className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
+                placeholder='or are you who shall not be named??'
+                onChange={e => setName(e.target.value)}
+                onBlur={checkName}/>
+              <br />
+              <label className='text-sm'>Email</label>
+              <input
+                id='email-input'
+                type='email'
+                className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
+                placeholder='for... purposes'
                 onChange={e => setEmail(e.target.value)}
                 onBlur={checkEmail}/>
               <br />
-              <label className="text-sm">Password</label>
+              <label className='text-sm'>Password</label>
               <input
-                id="password-input"
-                type="password"
-                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-                placeholder="Enter your password"
+                id='password-input'
+                type='password'
+                className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
+                placeholder='the only thing we don&apos;t know'
                 onChange={e => setPassword(e.target.value)}/>
               <br />
-              <label className="text-sm">Confirm Password</label>
-              <input
-                id="confirm-pass-input"
-                type="password"
-                className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-                placeholder="Confirm your password"
-                onChange={e => setConfirmPass(e.target.value)}
-                onBlur={checkPasswords}/>
-              <br />
-              <button type="submit" className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]" onClick={onSubmit}>
-                <p className="font-bold">Register</p>
+              <button type='submit' className='w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]' onClick={onSubmit}>
+                  <p className='font-bold'>Register</p>
               </button>
             </div>
           </form>
           <br />
-          <div className="flex flex-col justify-center items-center">
-            <p className="font-bold text-sm mb-2">Already a member?</p>
-            <button className="font-bold text-sm text-theme-blue hover:underline" onClick={navToLogin}>Login</button>
+          <div className='flex flex-col justify-center items-center'>
+            <p className='font-bold text-sm mb-2'>Already a member?</p>
+            <button className='font-bold text-sm text-theme-blue hover:underline' onClick={navToLogin}>Login</button>
           </div>
         </div>
       </div>

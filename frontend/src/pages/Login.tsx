@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import React from 'react';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebase';
+import { useState } from 'react';
 import PageTemplate from '../components/PageTemplate';
 
-function Login () {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   
   const navToRegister = () => {
@@ -21,7 +22,6 @@ function Login () {
     }
   };
 
-  const auth = getAuth();
   const onSubmit = () => {
     if (email && password) {
       login(email, password);
