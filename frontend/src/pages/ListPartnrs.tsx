@@ -52,6 +52,24 @@ function ListPartnrs() {
          hours: 3,
          communication: 'Discord'
       },
+      {
+         zid: 5549934,
+         name: 'Joshi',
+         year: 2,
+         degree: 'Computer Science',
+         desiredMark: 'HD',
+         hours: 3,
+         communication: 'Discord'
+      },
+      {
+         zid: 5574830,
+         name: 'Henry',
+         year: 2,
+         degree: 'Computer Science',
+         desiredMark: 'HD',
+         hours: 3,
+         communication: 'Discord'
+      },
    ]);
 
    partnrs.set('COMP1531', [
@@ -109,7 +127,7 @@ function ListPartnrs() {
    return (
       <PageTemplate showBottomNav={true}>
       <div className='container items-center justify-center min-h-screen pt-10 lg:px-40 md:px-20 bg-theme-white'>
-         <div className='grid grid-cols-2 gap-x-16 gap-y-10'>
+         <div className='grid grid-cols-2 lg:gap-x-16 md:gap-x-8 gap-y-10'>
             {listPartnrs}
          </div>
       </div>

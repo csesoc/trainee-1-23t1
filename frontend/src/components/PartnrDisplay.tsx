@@ -47,11 +47,20 @@ function PartnrDisplay({partnrInfo}: Props) {
    return (
       <>
       {showDetails
-         ?  <div className='flex relative bg-theme-yellow items-center justify-center col-span-1 p-10 rounded-2xl shadow-md hover:shadow-black'>
-               <div className='flex flex-col cursor-pointer'  onClick={navToPartnrPage}>
-                  <p className='text-sm'><b>Desired Grade: </b> {partnrInfo.desiredMark}</p>
-                  <p className='text-sm'><b>Hours per week: </b>{partnrInfo.hours}</p>
-                  <p className='text-sm'><b>Preferred Comms: </b>{partnrInfo.communication}</p>
+         ?  <div className='flex relative bg-theme-yellow items-center col-span-1 p-10 rounded-2xl shadow-md hover:shadow-black'>
+               <div className='flex flex-col cursor-pointer w-full lg:px-20 md:px-10' onClick={navToPartnrPage}>
+                  <div className='flex justify-between'>
+                     <p className='text-sm'><b>Desired Grade </b></p>
+                     <p className='text-sm'>{partnrInfo.desiredMark}</p>
+                  </div>
+                  <div className='flex justify-between'>
+                     <p className='text-sm'><b>Hours per week </b></p>
+                     <p className='text-sm'>{partnrInfo.hours}</p>
+                  </div>
+                  <div className='flex justify-between'>
+                     <p className='text-sm'><b>Preferred Comms </b></p>
+                     <p className='text-sm'>{partnrInfo.communication}</p>
+                  </div>
                </div>
                <button className='absolute left-5' onClick={toggleDetails}> V </button>
             </div>
