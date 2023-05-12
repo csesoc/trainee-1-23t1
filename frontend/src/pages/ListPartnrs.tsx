@@ -108,8 +108,8 @@ function ListPartnrs() {
 
    return (
       <PageTemplate showBottomNav={true}>
-      <div className='container flex items-center justify-center min-h-screen bg-theme-white'>
-         <div className='grid grid-cols-2 gap-x-16 gap-y-10 space-x-0'>
+      <div className='container items-center justify-center min-h-screen pt-10 lg:px-40 md:px-20 bg-theme-white'>
+         <div className='grid grid-cols-2 gap-x-16 gap-y-10'>
             {listPartnrs}
          </div>
       </div>
