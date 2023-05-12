@@ -18,6 +18,7 @@ const Register = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [validName, setValidName] = useState(false);
   const [validZid, setValidZid] = useState(false);
+  const [validPass, setValidPass] = useState(false);
 
   const navigate = useNavigate();
   const navToLogin = () => {
@@ -52,7 +53,7 @@ const Register = () => {
   };
 
   const onSubmit = () => {
-    if (validEmail && validName && validZid) {
+    if (validEmail && validName && validZid && validPass) {
       register(email, password);
       navToDetails();
     } else {
@@ -63,20 +64,66 @@ const Register = () => {
   }
 
   const checkZid = () => {
+    const input = document.getElementById('zid-input');
     if (zid !== '') {
+      if (input) {
+        input.classList.remove('border-1', 'border-rose-500');
+        input.classList.add('border-0');
+      }
       setValidZid(true);
+    } else {
+      if (input) {
+        input.classList.remove('border-0');
+        input.classList.add('border-1', 'border-rose-500');
+      }
     }
   }
   
   const checkName = () => {
+    const input = document.getElementById('name-input');
     if (name !== '') {
+      if (input) {
+        input.classList.remove('border-1', 'border-rose-500');
+        input.classList.add('border-0');
+      }
       setValidName(true);
+    } else {
+      if (input) {
+        input.classList.remove('border-0');
+        input.classList.add('border-1', 'border-rose-500');
+      }
     }
   }
 
   const checkEmail = () => {
+    const input = document.getElementById('email-input');
     if (RegExp('^.+\@.+\..+$').test(email)) {
+      if (input) {
+        input.classList.remove('border-1', 'border-rose-500');
+        input.classList.add('border-0');
+      }
       setValidEmail(true);
+    } else {
+      if (input) {
+        input.classList.remove('border-0');
+        input.classList.add('border-1', 'border-rose-500');
+      }
+    }
+  }
+
+  const checkPass = () => {
+    const input = document.getElementById('password-input');
+    if (password.length < 6) {
+      if (input) {
+        input.classList.remove('border-0');
+        input.classList.add('border-1', 'border-rose-500');
+      }
+    } else {
+      if (input) {
+        input.classList.remove('border-1', 'border-rose-500');
+        input.classList.add('border-0');
+        setValidPass(true);
+      }
     }
   }
 
@@ -95,7 +142,7 @@ const Register = () => {
                 className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
                 placeholder='your prisoner number'
                 onChange={e => setZid(e.target.value)}
-                onBlur={checkZid}/>
+                onBlur={checkZid}/> 
               <br />
               <label className='text-sm'>Username</label>
               <input
@@ -121,7 +168,8 @@ const Register = () => {
                 type='password'
                 className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
                 placeholder='the only thing we don&apos;t know'
-                onChange={e => setPassword(e.target.value)}/>
+                onChange={e => setPassword(e.target.value)}
+                onBlur={checkPass}/>
               <br />
               <button type='submit' className='w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]' onClick={onSubmit}>
                   <p className='font-bold'>Register</p>
