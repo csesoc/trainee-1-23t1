@@ -1,9 +1,10 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import LandingPage from './pages/LandingPage';
-import Page404 from './pages/Page404';
-import Login from './pages/Login';
-import Register from './pages/Register';
+
 import Details from './pages/Details';
+import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
+import Page404 from './pages/Page404';
+import Register from './pages/Register';
 
 const App = () => {
   return (

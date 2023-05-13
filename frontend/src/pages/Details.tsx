@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from '../firebase';
+
 import { doc, updateDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+
 import PageTemplate from '../components/PageTemplate';
 
 const Details = () => {

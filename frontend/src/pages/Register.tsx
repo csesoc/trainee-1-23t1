@@ -1,10 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import PageTemplate from '../components/PageTemplate';
-import { auth, db } from '../firebase';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+
+import PageTemplate from '../components/PageTemplate';
 
 const Register = () => {
   const [zid, setZid] = useState('');
