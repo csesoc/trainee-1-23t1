@@ -29,7 +29,7 @@ const PageTemplate = ({
           ? { backgroundColor: '#EEBE6F' }
           : { backgroundColor: '#F7EDE2' }
       }
-      className='container flex justify-center items-center min-h-screen'
+      className='container flex justify-center items-center min-h-screen min-w-full'
     >
       {children}
     </div>
