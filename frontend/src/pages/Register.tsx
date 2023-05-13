@@ -27,11 +27,7 @@ const Register = () => {
   const register = async (email: string, password: string) => {
     try {
       // Register user
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
       const user = userCredentials.user;
 
@@ -125,67 +121,64 @@ const Register = () => {
 
   return (
     <PageTemplate showBottomNav={false}>
-      <div className='container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white'>
-        <p className='font-bold text-3xl'>Register</p>
+      <div className="container flex-auto max-w-md max-h-min px-10 py-5 rounded-xl shadow-md bg-theme-white">
+        <p className="font-bold text-3xl">Register</p>
         <br />
         <form>
-          <div className='container flex items-start flex-col'>
-            <label className='text-sm'>zID</label>
+          <div className="container flex items-start flex-col">
+            <label className="text-sm">zID</label>
             <input
-              id='zid-input'
-              type='text'
-              className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
-              placeholder='your prisoner number'
+              id="zid-input"
+              type="text"
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+              placeholder="your prisoner number"
               onChange={(e) => setZid(e.target.value)}
               onBlur={checkZid}
             />
             <br />
-            <label className='text-sm'>Username</label>
+            <label className="text-sm">Username</label>
             <input
-              id='name-input'
-              type='text'
-              className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
-              placeholder='or are you who shall not be named??'
+              id="name-input"
+              type="text"
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+              placeholder="or are you who shall not be named??"
               onChange={(e) => setName(e.target.value)}
               onBlur={checkName}
             />
             <br />
-            <label className='text-sm'>Email</label>
+            <label className="text-sm">Email</label>
             <input
-              id='email-input'
-              type='email'
-              className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
-              placeholder='for... purposes'
+              id="email-input"
+              type="email"
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
+              placeholder="for... purposes"
               onChange={(e) => setEmail(e.target.value)}
               onBlur={checkEmail}
             />
             <br />
-            <label className='text-sm'>Password</label>
+            <label className="text-sm">Password</label>
             <input
-              id='password-input'
-              type='password'
-              className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
+              id="password-input"
+              type="password"
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
               placeholder="the only thing we don't know"
               onChange={(e) => setPassword(e.target.value)}
               onBlur={checkPass}
             />
             <br />
             <button
-              type='submit'
-              className='w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]'
+              type="submit"
+              className="w-full px-2 py-3 rounded-xl border-0 bg-theme-red hover:bg-[#e37876]"
               onClick={onSubmit}
             >
-              <p className='font-bold'>Register</p>
+              <p className="font-bold">Register</p>
             </button>
           </div>
         </form>
         <br />
-        <div className='flex flex-col justify-center items-center'>
-          <p className='font-bold text-sm mb-2'>Already a member?</p>
-          <button
-            className='font-bold text-sm text-theme-blue hover:underline'
-            onClick={navToLogin}
-          >
+        <div className="flex flex-col justify-center items-center">
+          <p className="font-bold text-sm mb-2">Already a member?</p>
+          <button className="font-bold text-sm text-theme-blue hover:underline" onClick={navToLogin}>
             Login
           </button>
         </div>
