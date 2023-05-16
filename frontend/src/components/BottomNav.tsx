@@ -1,24 +1,26 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+
 import calendarIcon from '../assets/calendarIcon.svg';
 import profileIcon from '../assets/profileIcon.svg';
 import notifIcon from '../assets/notifIcon.svg';
+import notifDotIcon from '../assets/notifDotIcon.svg';
 
-// IDK HOW TO DO THE CHECK FOR NOTIFS TO DISPLAY THE DOT
-// IDK HOW TO WORK THESE ROUTES MAN
+const temp = []; // notifs
+
 const BottomNav = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-theme-blue fixed bottom-0 w-full">
-      <a href="" className="bottom-navbar-icon">
+    <div className="bg-theme-blue fixed bottom-0 z-50 w-full">
+      <Link to={'my_profile'} className="bottom-navbar-icon">
         <img src={profileIcon} alt="profile" width="50" />
-      </a>
-      <a href="" className="bottom-navbar-icon">
-        <img src={notifIcon} alt="notif" width="50" />
-      </a>
-      <a href="" className="bottom-navbar-icon">
+      </Link>
+      <Link to={'/'} className="bottom-navbar-icon">
+        <img src={temp.length ? notifDotIcon : notifIcon} alt="notif" width="50" />
+      </Link>
+      <Link to={'/frontend_aint_it'} className="bottom-navbar-icon">
         <img src={calendarIcon} alt="calendar" width="50" />
-      </a>
+      </Link>
     </div>
   );
 };
