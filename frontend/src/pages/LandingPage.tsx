@@ -1,9 +1,17 @@
 import PageTemplate from '../components/PageTemplate';
+import CourseFolderList from '../components/LandingPage/CourseFolderList';
+import RightSideBar from '../components/LandingPage/RightSideBar';
+
+import defaultPfp from '../assets/defaultPfp.svg';
 
 const LandingPage = () => {
   return (
     <PageTemplate showYellowBg={false}>
-      <span className="text-9xl"> OMG I LOVE FRONTEND</span>
+      <div className="container max-w-md">
+        {<CourseFolderList />}
+        {<RightSideBar />}
+        <img src={defaultPfp} alt="pfp" width="400" />
+      </div>
     </PageTemplate>
   );
 };
