@@ -9,7 +9,7 @@ const BottomNav = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-theme-blue fixed bottom-0 w-full">
+        <div className="bg-theme-blue fixed bottom-0 w-full z-40">
             <a href="" className="bottom-navbar-icon"><img src={profileIcon} alt="profile" width="25"/></a>
             <a href="" className="bottom-navbar-icon"><img src={notifIcon} alt="notif" width="25"/></a>
             <a href="" className="bottom-navbar-icon"><img src={calendarIcon} alt="calendar" width="25"/></a>

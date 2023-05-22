@@ -29,7 +29,7 @@ function CourseDisplay({courseInfo}: Props) {
 }
 
 CourseDisplay.propTypes = {
-   courseId: PropTypes.object
+   courseInfo: PropTypes.object
 }
 
 export default CourseDisplay;

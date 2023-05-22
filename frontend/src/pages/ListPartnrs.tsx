@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import React from 'react';
 import PageTemplate from '../components/PageTemplate';
 import PartnrDisplay from '../components/PartnrDisplay';
+import anon from '../../../anon.png';
 
 function ListPartnrs() {
    const partnrs = new Map();
@@ -12,6 +12,7 @@ function ListPartnrs() {
          name: 'Jasmine',
          year: 2,
          degree: 'Computer Science',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -21,6 +22,7 @@ function ListPartnrs() {
          name: 'Oliver',
          year: 69,
          degree: 'Computer Science & Aerospace',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -30,6 +32,7 @@ function ListPartnrs() {
          name: 'Jeremy',
          year: 2,
          degree: 'Computer Science & Mathematics',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -39,6 +42,7 @@ function ListPartnrs() {
          name: 'Nicole',
          year: 2,
          degree: 'Computer Engineering',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -48,6 +52,7 @@ function ListPartnrs() {
          name: 'Chloe',
          year: 4,
          degree: 'Computer Science & Media Arts',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -57,6 +62,7 @@ function ListPartnrs() {
          name: 'Joshi',
          year: 2,
          degree: 'Computer Science',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -66,6 +72,7 @@ function ListPartnrs() {
          name: 'Henry',
          year: 2,
          degree: 'Computer Science',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -78,6 +85,7 @@ function ListPartnrs() {
          name: 'Jasmine',
          year: 2,
          degree: 'Computer Science',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -87,6 +95,7 @@ function ListPartnrs() {
          name: 'Oliver',
          year: 69,
          degree: 'Computer Science & Aerospace',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -99,6 +108,7 @@ function ListPartnrs() {
          name: 'Jasmine',
          year: 2,
          degree: 'Computer Science',
+         photo: {anon},
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -116,6 +126,7 @@ function ListPartnrs() {
          name: partnr.name,
          year: partnr.year,
          degree: partnr.degree,
+         photo: partnr.photo,
          desiredMark: partnr.desiredMark,
          hours: partnr.hours,
          communication: partnr.communication
@@ -126,7 +137,7 @@ function ListPartnrs() {
 
    return (
       <PageTemplate showBottomNav={true}>
-      <div className='container items-center justify-center min-h-screen pt-10 lg:px-40 md:px-20 bg-theme-white'>
+      <div className='container items-center justify-center pt-10 lg:px-40 md:px-20 bg-theme-white'>
          <div className='grid grid-cols-2 lg:gap-x-16 md:gap-x-8 gap-y-10'>
             {listPartnrs}
          </div>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import { useState } from 'react';
 
 type Props = {
    partnrInfo: {
@@ -8,6 +8,7 @@ type Props = {
       name: string
       year: number
       degree: string
+      photo: string;
       desiredMark: string
       hours: number
       communication: string
@@ -15,8 +16,8 @@ type Props = {
 };
 
 function PartnrDisplay({partnrInfo}: Props) {
-   const [showDetails, setShowDetails] = React.useState(false);
-   const [saved, setSaved] = React.useState(false);
+   const [showDetails, setShowDetails] = useState(false);
+   const [saved, setSaved] = useState(false);
 
    const navigate = useNavigate();
    const navToPartnrPage = () => {
@@ -70,7 +71,7 @@ function PartnrDisplay({partnrInfo}: Props) {
                   : <button className='absolute top-5 left-5' onClick={toggleSaved}> [] </button>
                }
                <div className='flex basis-1/3 cursor-pointer' onClick={navToPartnrPage}>
-                  profile pic
+                  {partnrInfo.photo}
                </div>
                <div className='flex flex-col basis-2/3 cursor-pointer'  onClick={navToPartnrPage}>
                   <b>{partnrInfo.name}</b>
