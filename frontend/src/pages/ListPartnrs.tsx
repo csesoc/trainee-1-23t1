@@ -12,7 +12,7 @@ function ListPartnrs() {
          name: 'Jasmine',
          year: 2,
          degree: 'Computer Science',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -22,7 +22,7 @@ function ListPartnrs() {
          name: 'Oliver',
          year: 69,
          degree: 'Computer Science & Aerospace',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -32,7 +32,7 @@ function ListPartnrs() {
          name: 'Jeremy',
          year: 2,
          degree: 'Computer Science & Mathematics',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -42,7 +42,7 @@ function ListPartnrs() {
          name: 'Nicole',
          year: 2,
          degree: 'Computer Engineering',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -52,7 +52,7 @@ function ListPartnrs() {
          name: 'Chloe',
          year: 4,
          degree: 'Computer Science & Media Arts',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -62,7 +62,7 @@ function ListPartnrs() {
          name: 'Joshi',
          year: 2,
          degree: 'Computer Science',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -72,7 +72,7 @@ function ListPartnrs() {
          name: 'Henry',
          year: 2,
          degree: 'Computer Science',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -85,7 +85,7 @@ function ListPartnrs() {
          name: 'Jasmine',
          year: 2,
          degree: 'Computer Science',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -95,7 +95,7 @@ function ListPartnrs() {
          name: 'Oliver',
          year: 69,
          degree: 'Computer Science & Aerospace',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'
@@ -108,7 +108,7 @@ function ListPartnrs() {
          name: 'Jasmine',
          year: 2,
          degree: 'Computer Science',
-         photo: {anon},
+         photo: anon,
          desiredMark: 'HD',
          hours: 3,
          communication: 'Discord'

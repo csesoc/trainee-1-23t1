@@ -71,9 +71,9 @@ function PartnrDisplay({partnrInfo}: Props) {
                   : <button className='absolute top-5 left-5' onClick={toggleSaved}> [] </button>
                }
                <div className='flex basis-1/3 cursor-pointer' onClick={navToPartnrPage}>
-                  {partnrInfo.photo}
+                  <img className='p-3' src={partnrInfo.photo}/>
                </div>
-               <div className='flex flex-col basis-2/3 cursor-pointer'  onClick={navToPartnrPage}>
+               <div className='flex flex-col basis-2/3 cursor-pointer p-3'  onClick={navToPartnrPage}>
                   <b>{partnrInfo.name}</b>
                   <p className='text-sm'>{yearToString(partnrInfo.year)}</p>
                   <p className='text-sm'>{partnrInfo.degree}</p>
