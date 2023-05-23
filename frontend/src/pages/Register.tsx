@@ -1,14 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import PageTemplate from '../components/PageTemplate';
-import { auth, db } from '../firebase';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import {
-  collection,
-  doc,
-  setDoc,
-} from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+
+import PageTemplate from '../components/PageTemplate';
 
 const Register = () => {
   const [zid, setZid] = useState('');
@@ -23,19 +20,15 @@ const Register = () => {
   const navigate = useNavigate();
   const navToLogin = () => {
     navigate('/admin/auth/login');
-  }
+  };
   const navToDetails = () => {
     navigate('/admin/auth/details');
-  }
-    // Adds a new user to firebase.
+  };
+  // Adds a new user to firebase.
   const register = async (email: string, password: string) => {
     try {
       // Register user
-      const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
       const user = userCredentials.user;
 
