@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import anon from '../../../anon.png';
+import anon from '../assets/anon.png';
 
 const Details = () => {
   const [degree, setDegree] = useState('');

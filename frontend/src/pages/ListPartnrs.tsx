@@ -1,141 +1,55 @@
 import { useParams } from 'react-router-dom';
 import PageTemplate from '../components/PageTemplate';
 import PartnrDisplay from '../components/PartnrDisplay';
-import anon from '../../../anon.png';
+import { db } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
 function ListPartnrs() {
-   const partnrs = new Map();
-
-   partnrs.set('COMP6969', [
-      {
-         zid: 1234567,
-         name: 'Jasmine',
-         year: 2,
-         degree: 'Computer Science',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-      {
-         zid: 2345678,
-         name: 'Oliver',
-         year: 69,
-         degree: 'Computer Science & Aerospace',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-      {
-         zid: 3456789,
-         name: 'Jeremy',
-         year: 2,
-         degree: 'Computer Science & Mathematics',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-      {
-         zid: 4567890,
-         name: 'Nicole',
-         year: 2,
-         degree: 'Computer Engineering',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-      {
-         zid: 5308817,
-         name: 'Chloe',
-         year: 4,
-         degree: 'Computer Science & Media Arts',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-      {
-         zid: 5549934,
-         name: 'Joshi',
-         year: 2,
-         degree: 'Computer Science',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-      {
-         zid: 5574830,
-         name: 'Henry',
-         year: 2,
-         degree: 'Computer Science',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-   ]);
-
-   partnrs.set('COMP1531', [
-      {
-         zid: 1234567,
-         name: 'Jasmine',
-         year: 2,
-         degree: 'Computer Science',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-      {
-         zid: 2345678,
-         name: 'Oliver',
-         year: 69,
-         degree: 'Computer Science & Aerospace',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      },
-   ]);
-
-   partnrs.set('COMP1511', [
-      {
-         zid: 1234567,
-         name: 'Jasmine',
-         year: 2,
-         degree: 'Computer Science',
-         photo: anon,
-         desiredMark: 'HD',
-         hours: 3,
-         communication: 'Discord'
-      }
-   ]);
-
-   partnrs.set('COMP1521', []);
-
+   const [users, setUsers] = useState<any[]>([]);
    const { courseId } = useParams();
-   console.log(courseId);
 
-   const potentialPartnrs = partnrs.get(courseId);
-   console.log(potentialPartnrs);
-   const listPartnrs = potentialPartnrs.map((partnr: any) => {
-      const partnrInfo = {
-         zid: partnr.zid,
-         name: partnr.name,
-         year: partnr.year,
-         degree: partnr.degree,
-         photo: partnr.photo,
-         desiredMark: partnr.desiredMark,
-         hours: partnr.hours,
-         communication: partnr.communication
+   const getUsers = async () => {
+      const userList: any[] = [];
+      if (courseId) {
+         const courseRef = doc(db, "courses", courseId);
+         const courseSnap = await getDoc(courseRef);
+         const userIds = courseSnap.data()?.users;
+         userIds.forEach(async (id: string) => {
+            const userRef = doc(db, "users", id);
+            const userSnap = await getDoc(userRef);
+            const userData = userSnap.data();
+            userList.push(userData);
+         });
       }
+      setUsers(userList);
+   }
 
-      return <PartnrDisplay key={partnr.zid} partnrInfo={partnrInfo}></PartnrDisplay>
-   });
+   useEffect(() => {
+      getUsers();
+   }, []);
+
+   console.log(users)
+
+   // const listPartnrs = users.map((partnr: any) => {
+   //    console.log("hi", partnr);
+   //    const partnrInfo = {
+   //       zid: partnr.zid,
+   //       name: partnr.name,
+   //       year: partnr.year,
+   //       degree: partnr.degree,
+   //       photo: partnr.photo,
+   //       desiredMark: partnr.desiredMark,
+   //       // hours: partnr.hours,
+   //       communication: partnr.comms
+   //    }
+   //    console.log(partnrInfo)
+   //    return <PartnrDisplay key={partnr.zid} partnrInfo={partnrInfo} />
+   // });
+
+   console.log(users[0]);
+   const listPartnrs = <PartnrDisplay key={users[0].zid} partnrInfo={users[0]} />;
+  
 
    return (
       <PageTemplate showBottomNav={true} showYellowBg={false}>
