@@ -18,7 +18,6 @@ const Login = () => {
   const login = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log('logged');
     } catch (e) {
       alert(e);
     }
@@ -35,13 +34,11 @@ const Login = () => {
     const input = document.getElementById('email-input');
     if (!RegExp('^.+@.+..+$').test(email)) {
       if (input) {
-        console.log('hello');
         input.classList.remove('border-green-700');
         input.classList.add('border', 'border-red-500');
       }
     } else {
       if (input) {
-        console.log("hello");
         input.classList.remove('border-red-500');
         input.classList.add('border', 'border-green-700');
       }
