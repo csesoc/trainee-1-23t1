@@ -39,6 +39,20 @@ const temp = {
       handle: '@jakerenzella',
       course: 'COMP1531', // possibly show shared courses rather than only requested course (few downsides)
     },
+    {
+      pfp: defaultPfp,
+      zid: 5123456,
+      name: 'Jake Renzella',
+      handle: '@jakerenzella',
+      course: 'COMP1531', // possibly show shared courses rather than only requested course (few downsides)
+    },
+    {
+      pfp: defaultPfp,
+      zid: 5123456,
+      name: 'Jake Renzella',
+      handle: '@jakerenzella',
+      course: 'COMP1531', // possibly show shared courses rather than only requested course (few downsides)
+    },
   ],
 };
 
@@ -67,7 +81,7 @@ const PendingPartners = () => {
     <div className="bg-theme-pink flex-grow mt-5 px-4 pb-0 overflow-auto">
       {temp.requests.map((request) => (
         // Fix background colour - find better one
-        <div className="bg-theme-red p-2 my-3 rounded-md flex flex-row overflow-visible">
+        <div className="bg-theme-white p-2 my-3 rounded-md flex flex-row overflow-visible">
           <Link to={`/users/${request.zid}`}>
             <img src={request.pfp} alt="requestPfp" width="80" className="bg-theme-blue rounded-full" />
           </Link>
@@ -76,13 +90,13 @@ const PendingPartners = () => {
               <p className="font-bold text-lg">{request.name}</p>
             </Link>
             <Link to={`/users/${request.zid}`}>
-              <p className="font-bold text-m">{request.handle}</p>
+              <p className=" text-m">{request.handle}</p>
             </Link>
-            <p className="ml-2 text-sm">{request.course}</p>
+            <p className="text-sm">{request.course}</p>
           </div>
           <div className="flex flex-row flex-grow ml-3">
-            <button className="landing-partner-invite-button bg-green-300">Accept</button>
-            <button className="landing-partner-invite-button bg-red-400">Reject</button>
+            <button className="landing-partner-invite-button bg-theme-blue">Accept</button>
+            <button className="landing-partner-invite-button bg-theme-red">Reject</button>
           </div>
         </div>
       ))}
