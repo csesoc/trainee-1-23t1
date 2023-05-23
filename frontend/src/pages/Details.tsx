@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { auth, db } from "../firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { auth, db } from '../firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
-import PageTemplate from "../components/PageTemplate";
+import PageTemplate from '../components/PageTemplate';
 import anon from '../assets/anon.png';
+import { useAuth } from '../context/AuthContext';
+import { AppContext } from '../context/AppContext';
 
 const Details = () => {
   const [degree, setDegree] = useState('');
@@ -19,22 +21,29 @@ const Details = () => {
     navigate('/');
   };
 
-  const user = auth.currentUser;
-  const { zid } = useParams();
+  const { user, setUser } = useContext(AppContext);
+  const { authUid } = useAuth();
 
   const addDetailsToUser = async () => {
     try {
       // Register user
-      if (user && zid) {
-        const userRef = doc(db, 'users', zid.toString());
+      if (authUid) {
+        const userRef = doc(db, 'users', authUid);
         await updateDoc(userRef, {
           degree: degree,
           year: year,
           photo: anon,
           comms: 'any',
           mbti: mbti,
-          wam: wam
+          wam: wam,
         });
+
+        // Get user with new added details and set in app context.
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          const userDetails = docSnap.data();
+          setUser(userDetails);
+        }
       }
     } catch (e) {
       alert(e);
@@ -53,18 +62,21 @@ const Details = () => {
               type="text"
               className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
               placeholder="What do you study?"
-              onChange={(e) => setDegree(e.target.value)}/>
+              onChange={(e) => setDegree(e.target.value)}
+            />
             <label className="text-sm mt-4">Year of Study</label>
             <input
               type="number"
               className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
               placeholder="1"
-              onChange={(e) => setYear(e.target.valueAsNumber)}/>
+              onChange={(e) => setYear(e.target.valueAsNumber)}
+            />
             <label className="text-sm mt-4">WAM (optional)</label>
             <select
               className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
               placeholder="Confirm your password"
-              onChange={(e) => setWam(e.target.value)}>
+              onChange={(e) => setWam(e.target.value)}
+            >
               <option value="none">none</option>
               <option value="HD">HD</option>
               <option value="DN">DN</option>
@@ -77,7 +89,8 @@ const Details = () => {
               type="text"
               className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
               placeholder="Your personality type"
-              onChange={(e) => setMbti(e.target.value)}/>
+              onChange={(e) => setMbti(e.target.value)}
+            />
             <p className="text-xs mt-2">
               Your Myers-Brigg personality type. This will be used to measure compatability across possible partners.
               <a className="text-xs text-theme-blue" href="https://www.16personalities.com/" target="_blank">
@@ -89,7 +102,7 @@ const Details = () => {
               className="w-full px-2 py-3 rounded-xl border-0 mt-4 bg-theme-red hover:bg-[#e37876]"
               onClick={navToLandingPage}
             >
-            <p className="font-bold">Find your partnr!</p>
+              <p className="font-bold">Find your partnr!</p>
             </button>
           </div>
         </form>
