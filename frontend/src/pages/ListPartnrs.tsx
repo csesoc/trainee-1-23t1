@@ -102,7 +102,7 @@ function ListPartnrs() {
       },
    ]);
 
-   partnrs.set('COMP1151', [
+   partnrs.set('COMP1511', [
       {
          zid: 1234567,
          name: 'Jasmine',
@@ -118,8 +118,10 @@ function ListPartnrs() {
    partnrs.set('COMP1521', []);
 
    const { courseId } = useParams();
+   console.log(courseId);
 
    const potentialPartnrs = partnrs.get(courseId);
+   console.log(potentialPartnrs);
    const listPartnrs = potentialPartnrs.map((partnr: any) => {
       const partnrInfo = {
          zid: partnr.zid,
@@ -136,7 +138,7 @@ function ListPartnrs() {
    });
 
    return (
-      <PageTemplate showBottomNav={true}>
+      <PageTemplate showBottomNav={true} showYellowBg={false}>
       <div className='container items-center justify-center pt-10 lg:px-40 md:px-20 bg-theme-white'>
          <div className='grid grid-cols-2 lg:gap-x-16 md:gap-x-8 gap-y-10'>
             {listPartnrs}

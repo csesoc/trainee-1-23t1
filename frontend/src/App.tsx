@@ -19,8 +19,6 @@ const App = () => {
         <Route path='/admin/auth/details' element={<Details/>} />
         <Route path='/courses' element={<CourseSelect/>} />
         <Route path='/courses/:courseId/partnrs' element={<ListPartnrs />} />
-        <Route path="/" element={<LandingPage />} />
-        <Route path="*" element={<Page404 />} />
       </Routes>
     </Router>
   );
