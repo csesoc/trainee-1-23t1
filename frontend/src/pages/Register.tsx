@@ -22,7 +22,7 @@ const Register = () => {
     navigate('/admin/auth/login');
   };
   const navToDetails = () => {
-    navigate('/admin/auth/details');
+    navigate(`/admin/auth/details/${zid}`);
   };
   // Adds a new user to firebase.
   const register = async (email: string, password: string) => {
@@ -34,11 +34,11 @@ const Register = () => {
 
       // Add user to database
       const usersRef = collection(db, 'users');
-      await setDoc(doc(usersRef, `${user.uid}`), {
+      await setDoc(doc(usersRef, zid), {
         name: name,
-        zid: zid,
         email: user.email,
         partners: [],
+        courses: []
       });
     } catch (e) {
       alert(e);

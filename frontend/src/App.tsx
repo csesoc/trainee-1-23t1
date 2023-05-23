@@ -14,7 +14,7 @@ const App = () => {
         <Route path="*" element={<Page404 />} />
         <Route path="/admin/auth/login" element={<Login />} />
         <Route path="/admin/auth/register" element={<Register />} />
-        <Route path="/admin/auth/details" element={<Details />} />
+        <Route path="/admin/auth/details/:zid" element={<Details />} />
       </Routes>
     </Router>
   );

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { auth, db } from "../firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
 import PageTemplate from "../components/PageTemplate";
-import anon from '../../../anon.png';
+import anon from '../assets/anon.png';
 
 const Details = () => {
   const [degree, setDegree] = useState('');
@@ -20,12 +20,13 @@ const Details = () => {
   };
 
   const user = auth.currentUser;
+  const { zid } = useParams();
 
   const addDetailsToUser = async () => {
     try {
       // Register user
-      if (user) {
-        const userRef = doc(db, 'users', `${user.uid}`);
+      if (user && zid) {
+        const userRef = doc(db, 'users', zid.toString());
         await updateDoc(userRef, {
           degree: degree,
           year: year,
