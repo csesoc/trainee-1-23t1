@@ -8,7 +8,7 @@ import { auth, db } from '../firebase';
 import PageTemplate from '../components/PageTemplate';
 
 const Register = () => {
-  const [zid, setZid] = useState('');
+  const [zid, setZid] = useState(0);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +34,7 @@ const Register = () => {
 
       // Add user to database
       const usersRef = collection(db, 'users');
-      await setDoc(doc(usersRef, zid), {
+      await setDoc(doc(usersRef, zid.toString()), {
         name: name,
         email: user.email,
         partners: [],
@@ -58,7 +58,7 @@ const Register = () => {
 
   const checkZid = () => {
     const input = document.getElementById('zid-input');
-    if (zid !== '') {
+    if ((zid.toString()).length == 7) {
       if (input) {
         input.classList.remove('border-1', 'border-rose-500');
         input.classList.add('border-0');
@@ -128,13 +128,13 @@ const Register = () => {
           <br />
           <form>
             <div className='container flex items-start flex-col'>
-              <label className='text-sm'>zID</label>
+              <label className='text-sm'>zID (without the z)</label>
               <input
                 id='zid-input'
-                type='text'
+                type='number'
                 className='form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0'
                 placeholder='your prisoner number'
-                onChange={e => setZid(e.target.value)}
+                onChange={e => setZid(e.target.valueAsNumber)}
                 onBlur={checkZid}/> 
               <br />
               <label className='text-sm'>Username</label>

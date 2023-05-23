@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
 import PageTemplate from "../components/PageTemplate";
@@ -17,7 +17,7 @@ const Details = () => {
   const navToLandingPage = () => {
     addDetailsToUser();
     navigate('/');
-  };
+  }
 
   const { zid } = useParams();
 
@@ -25,7 +25,7 @@ const Details = () => {
     try {
       // Register user
       if (zid) {
-        const userRef = doc(db, 'users', zid.toString());
+        const userRef = doc(db, 'users', zid);
         await updateDoc(userRef, {
           degree: degree,
           year: year,
@@ -50,7 +50,7 @@ const Details = () => {
             <label className="text-sm">Degree</label>
             <input
               type="text"
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" 
               placeholder="What do you study?"
               onChange={(e) => setDegree(e.target.value)}/>
             <label className="text-sm mt-4">Year of Study</label>
@@ -60,8 +60,8 @@ const Details = () => {
               placeholder="1"
               onChange={(e) => setYear(e.target.valueAsNumber)}/>
             <label className="text-sm mt-4">WAM (optional)</label>
-            <select
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
+            <select 
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" 
               placeholder="Confirm your password"
               onChange={(e) => setWam(e.target.value)}>
               <option value="none">none</option>

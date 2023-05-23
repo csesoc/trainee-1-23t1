@@ -1,41 +1,47 @@
-import { useNavigate } from 'react-router-dom';
-import React from 'react';
 import PageTemplate from '../components/PageTemplate';
 import CourseDisplay from '../components/CourseDisplay';
 
+import { getDocs, collection } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useEffect, useState } from 'react';
+
+interface CourseData {
+   id: string
+   desc: string
+   usersInCourse: number[]
+}
+
 function CourseSelect() {
-   const dummyData = [
-      {
-         courseId: 'COMP6969',
-         courseDesc: 'Rizzing Fundamentals',
-         numOfStudents: 100
-      },
-      {
-         courseId: 'COMP1511',
-         courseDesc: 'Programming Fundamentals',
-         numOfStudents: 100
-      },
-      {
-         courseId: 'COMP1531',
-         courseDesc: 'Software Fundamentals',
-         numOfStudents: 100
-      },
-      {
-         courseId: 'COMP1521',
-         courseDesc: 'Computer Fundamentals',
-         numOfStudents: 100
-      }
-   ]
+   const [docs, setDocs] = useState<CourseData[]>([]);
 
-   const listCourses = dummyData.map((course) => {
+   useEffect(() => {
+      getCourses();
+   }, []);
+   
+   const getCourses = async () => {
+      const courseData: CourseData[] = [];
+      const coursesRef = await getDocs(collection(db, "courses"));
+      coursesRef.forEach((doc) => {
+         const course = doc.data();
+         const courseInfo = {
+            id: doc.id,
+            desc: course.desc,
+            usersInCourse: course.users
+         }
+         courseData.push(courseInfo);
+      });
+      setDocs(courseData);
+   }
+   
+   const listCourses = docs.map((course) => {
+      
       const courseInfo = {
-         courseId: course.courseId,
-         courseDesc: course.courseDesc,
-         numOfStudents: course.numOfStudents
+         courseId: course.id,
+         courseDesc: course.desc,
       }
-      return <CourseDisplay key={(course.courseId).toString()} courseInfo={courseInfo}></CourseDisplay>
+      return <CourseDisplay key={course.id} courseInfo={courseInfo}/>
    });
-
+   
 
    return (
       <PageTemplate showBottomNav={true}>

@@ -7,22 +7,22 @@ type Props = {
    courseInfo: {
       courseId: string
       courseDesc: string
-      numOfStudents: number
    };
  };
 
 function CourseDisplay({courseInfo}: Props) {
    const navigate = useNavigate();
    const navToCoursePage = () => {
-      navigate(`/courses/${courseInfo.courseId}`);
+      navigate(`/courses/${courseInfo.courseId}/partnrs`);
    }
 
    const { zid } = useParams();
+   console.log(zid);
 
    const addUserToCourse = async () => {
       try {
          if (zid) {
-            const userRef = doc(db, 'users', zid.toString());
+            const userRef = doc(db, 'users', zid);
             await updateDoc(userRef, {
                courses: arrayUnion(courseInfo.courseId)
             });
@@ -44,7 +44,7 @@ function CourseDisplay({courseInfo}: Props) {
             <p>{courseInfo.courseDesc}</p>
          </div>
          <div className='flex-auto w-2/3 text-center bg-theme-white px-15 py-10 rounded-r-2xl'>
-            <p>Number of students: {courseInfo.numOfStudents}</p>
+            <p>Number of students: ?</p>
             <button 
                className="bg-theme-red hover:bg-red-400 text-white font-bold py-2 px-4 border-b-2 border-red-600 hover:border-red-500 rounded"
                onClick={addUserToCourse}>
@@ -56,7 +56,7 @@ function CourseDisplay({courseInfo}: Props) {
 }
 
 CourseDisplay.propTypes = {
-   courseId: PropTypes.object
+   courseInfo: PropTypes.object
 }
 
 export default CourseDisplay;
