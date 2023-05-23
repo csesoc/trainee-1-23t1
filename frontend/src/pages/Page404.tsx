@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import PageTemplate from "../components/PageTemplate";
+import { useNavigate } from 'react-router-dom';
+import PageTemplate from '../components/PageTemplate';
 
 const Page404 = () => {
   const navigate = useNavigate();
