@@ -39,6 +39,7 @@ const Register = () => {
         zid: zid,
         email: user.email,
         partners: [],
+        courses: [],
       });
     } catch (e) {
       alert(e);

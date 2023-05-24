@@ -8,6 +8,6 @@
   }
 
   .landing-partner-invite-button {
-    @apply rounded-xl w-1/2 min-w-min mx-1 shadow-sm;
+    @apply rounded-xl w-1/2 min-w-max m-1 shadow-sm;
   }
 }
