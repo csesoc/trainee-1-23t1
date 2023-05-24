@@ -8,7 +8,7 @@ import Register from './pages/Register';
 import DisplayPartner from './pages/DisplayPartner';
 import ScheduleSelector from './pages/schedulers/ScheduleSelector';
 import TuteSelector from './pages/schedulers/TuteSelector';
-/*
+
 const App = () => {
   return (
     <Router>
@@ -20,14 +20,6 @@ const App = () => {
         <Route path="/admin/auth/details" element={<Details />} />
       </Routes>
     </Router>
-  );
-};*/
-
-const App = () => {
-  return (
-    <div className='App'>
-      <DisplayPartner/>
-    </div>
   );
 };
 
