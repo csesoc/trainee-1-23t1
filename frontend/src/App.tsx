@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { AppContext } from './context/AppContext';
 import { useAuth } from './context/AuthContext';
 
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import { db } from './firebase';
 
 import Details from './pages/Details';
@@ -14,9 +14,10 @@ import Page404 from './pages/Page404';
 import Register from './pages/Register';
 import CourseSelect from './pages/CourseSelect';
 import ListPartnrs from './pages/ListPartnrs';
+import { CourseList } from './interfaces/courses';
 
 const App = () => {
-  const { user, setUser } = useContext(AppContext);
+  const { user, setUser, courseList, setCourseList } = useContext(AppContext);
   const { authUid } = useAuth();
 
   useEffect(() => {
@@ -34,8 +35,26 @@ const App = () => {
     fetchUserDetails();
   }, []);
 
-  console.log(user);
+  useEffect(() => {
+    const fetchCourseDetails = async () => {
+      const fetchCourses: CourseList[] = [];
+      const courseSnap = await getDocs(collection(db, "courses"));
+      courseSnap.forEach((doc) => {
+        const courseDetails = doc.data();
+        const course = {
+          code: doc.id,
+          desc: courseDetails.desc,
+          users: courseDetails.users,
+        }
+        fetchCourses.push(course);
+      });
+      setCourseList(fetchCourses);
+    }
+    fetchCourseDetails();
+  }, []);
 
+  console.log(user);
+  console.log(courseList)
   return (
     <Router>
       <Routes>
