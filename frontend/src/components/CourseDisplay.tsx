@@ -43,10 +43,10 @@ function CourseDisplay({courseInfo}: Props) {
             <b className='text-2xl'>{courseInfo.courseId}</b>
             <p>{courseInfo.courseDesc}</p>
          </div>
-         <div className='flex flex-row w-2/3 text-center bg-theme-white px-15 py-10 rounded-r-2xl'>
+         <div className='flex flex-row w-2/3 text-center justify-between bg-theme-white px-10 py-10 rounded-r-2xl'>
             <p>sussy data</p>
             <button 
-               className="bg-theme-red hover:bg-red-400 text-white font-bold py-2 px-4 border-b-2 border-red-600 hover:border-red-500 rounded"
+               className="bg-theme-red hover:bg-red-400 text-white font-bold px-10 border-b-2 border-red-600 hover:border-red-500 rounded"
                onClick={addUserToCourse}>
                Join
             </button>
