@@ -1,7 +1,5 @@
-import { onAuthStateChanged } from 'firebase/auth';
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { auth, db } from '../firebase';
-import { doc, DocumentData, getDoc } from 'firebase/firestore';
+import { createContext, ReactNode, useState } from 'react';
+import { DocumentData } from 'firebase/firestore';
 
 interface IAppContext {
   user: DocumentData | null;

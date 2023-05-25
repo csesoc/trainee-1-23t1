@@ -1,16 +1,17 @@
+import { useContext, useEffect } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import { AppContext } from './context/AppContext';
+import { useAuth } from './context/AuthContext';
+
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from './firebase';
 
 import Details from './pages/Details';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Page404 from './pages/Page404';
 import Register from './pages/Register';
-import { useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth, db } from './firebase';
-import { doc, getDoc } from 'firebase/firestore';
-import { AppContext } from './context/AppContext';
-import { useAuth } from './context/AuthContext';
 
 const App = () => {
   const { user, setUser } = useContext(AppContext);

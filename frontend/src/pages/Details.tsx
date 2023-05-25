@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { auth, db } from '../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-import PageTemplate from '../components/PageTemplate';
 import anon from '../assets/anon.png';
-import { useAuth } from '../context/AuthContext';
+import PageTemplate from '../components/PageTemplate';
 import { AppContext } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 
 const Details = () => {
   const [degree, setDegree] = useState('');
