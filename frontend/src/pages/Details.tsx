@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { doc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
+import anon from '../assets/anon.png';
 import PageTemplate from '../components/PageTemplate';
+import { AppContext } from '../context/AppContext';
+import { useAuth } from '../context/AuthContext';
 
 const Details = () => {
   const [degree, setDegree] = useState('');
   const [year, setYear] = useState(0);
+  const [mbti, setMbti] = useState('');
+  const [wam, setWam] = useState('');
 
   const navigate = useNavigate();
   const navToLandingPage = () => {
@@ -16,17 +21,29 @@ const Details = () => {
     navigate('/');
   };
 
-  const user = auth.currentUser;
+  const { user, setUser } = useContext(AppContext);
+  const { authUid } = useAuth();
 
   const addDetailsToUser = async () => {
     try {
       // Register user
-      if (user) {
-        const userRef = doc(db, 'users', `${user.uid}`);
+      if (authUid) {
+        const userRef = doc(db, 'users', authUid);
         await updateDoc(userRef, {
           degree: degree,
           year: year,
+          photo: anon,
+          comms: 'any',
+          mbti: mbti,
+          wam: wam,
         });
+
+        // Get user with new added details and set in app context.
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          const userDetails = docSnap.data();
+          setUser(userDetails);
+        }
       }
     } catch (e) {
       alert(e);
@@ -58,20 +75,22 @@ const Details = () => {
             <select
               className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
               placeholder="Confirm your password"
+              onChange={(e) => setWam(e.target.value)}
             >
-              <option value="HD">none</option>
+              <option value="none">none</option>
               <option value="HD">HD</option>
-              <option value="HD">DN</option>
-              <option value="HD">CR</option>
-              <option value="HD">PS</option>
-              <option value="HD">FL</option>
+              <option value="DN">DN</option>
+              <option value="CR">CR</option>
+              <option value="PS">PS</option>
+              <option value="FL">FL</option>
             </select>
             <label className="text-sm mt-4">MBTI (optional)</label>
             <input
               type="text"
               className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
               placeholder="Your personality type"
-            ></input>
+              onChange={(e) => setMbti(e.target.value)}
+            />
             <p className="text-xs mt-2">
               Your Myers-Brigg personality type. This will be used to measure compatability across possible partners.
               <a className="text-xs text-theme-blue" href="https://www.16personalities.com/" target="_blank">
