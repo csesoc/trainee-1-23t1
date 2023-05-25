@@ -39,12 +39,12 @@ function CourseDisplay({courseInfo}: Props) {
 
    return (
       <div className='container flex max-w-3xl min-h-min my-4 rounded-2xl shadow-md cursor-pointer' onClick={navToCoursePage} >
-         <div className='flex-auto flex-col w-1/3 text-center bg-theme-red px-15 py-10 rounded-l-2xl'>
+         <div className='flex-auto flex-col w-1/3 text-center bg-theme-red px-10 py-10 rounded-l-2xl'>
             <b className='text-2xl'>{courseInfo.courseId}</b>
             <p>{courseInfo.courseDesc}</p>
          </div>
-         <div className='flex-auto w-2/3 text-center bg-theme-white px-15 py-10 rounded-r-2xl'>
-            <p>Number of students: ?</p>
+         <div className='flex flex-row w-2/3 text-center bg-theme-white px-15 py-10 rounded-r-2xl'>
+            <p>sussy data</p>
             <button 
                className="bg-theme-red hover:bg-red-400 text-white font-bold py-2 px-4 border-b-2 border-red-600 hover:border-red-500 rounded"
                onClick={addUserToCourse}>
