@@ -1,20 +1,66 @@
-import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
+import { User } from "firebase/auth";
+
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
-import {tempUser, tempUser2, sampleCourse, tuteTime} from './tempData'
-import { dayNum, getAllTutes } from './tuteSelector_fns';
+
+import { getAllTutes } from './tuteSelector_fns';
 import { showTime, weekDays } from '../../components/Timetable';
 
 const TuteSelector = () => {
-	//TEMP!!!!!
-	const user = tempUser;
-
-	// stores user time hashmap into data array
-	const [tutes, setTutes] = useState(user.tutes);
+	const navigate = useNavigate();
+	const [user, setUser] = useState<User | null>(null);
+	const [tutes, setTutes] = useState<Number[]>([]);
 	const [allTutes] = useState(getAllTutes("COMP2521"));
 
-	// renders cells
+	/**
+	 * Gets user data and stores it in 'tutes'
+	 * 		-> if tute data exist, set 'tutes' to what exists
+	 * 		-> if tute data !exist, create tute object and set 'tutes' to empty arr
+	 * if user is invalid, redirects to landing page
+	 */
+	useEffect(() => {
+		  auth.onAuthStateChanged(user => {
+			setUser(user);
+			getUserData();
+		});
+	}, [user]);
+
+	const getUserData = async () => {
+		try {
+			if (user) {
+				const userRef = doc(db, "users", user.uid);
+				const userSnap = await getDoc(userRef);
+
+				if (userSnap.exists()) {
+					if (userSnap.data().tutes) {
+						setTutes(userSnap.data().tutes);
+
+					} else {
+						setTutes([]);
+						updateDoc(userRef, {tutes: []});
+					}
+				} else {
+					setTutes([]);
+					navigate('/');
+				}
+			}
+		} catch (e) {
+			alert(e);
+		}
+	};
+
+
+	/**
+	 * renders cells upon refresh in 1 of 3 colours:
+	 * -> 'blank' is unselectable and has nothing
+	 * -> 'tute-available' is a selectable cell that has a tute
+	 * -> 'tute-selected' is a cell that the user has previously selected
+	 */
 	const showCells = () => {
 		let content = [];
 		for (let i = 0; i < 80; i++) {
@@ -70,13 +116,25 @@ const TuteSelector = () => {
 	}
 
 
-	const saveData = () => {
-		console.log('save\n');
+	/**
+	 * updates the user's data by overwriting the tutes array
+	 */
+	const saveData = async() => {
+		try {
+			if (user) {
+				const userRef = doc(db, "users", user.uid);
+				updateDoc(userRef, {tutes: tutes})
+				navigate('/');
+			}
+		} catch (e) {
+			alert(e);
+		}
 	}
 
-	const closeTemp = () => {
-		console.log('close\n');
+	const cancelClose = () => {
+		navigate('/');
 	}
+
 
 	return (
 		<div className="flex justify-center items-center w-full h-screen bg-theme-black">
@@ -112,7 +170,7 @@ const TuteSelector = () => {
 					< img src={tick} alt="save" width="30"/>
 				</button>
 				<button
-					onClick={() => closeTemp()}
+					onClick={() => cancelClose()}
 					className="relative bg-theme-red hover:bg-theme-yellow p-4 rounded-full shadow-md m-2">
 					< img src={cross} alt="cancel" width="30"/>
 				</button>

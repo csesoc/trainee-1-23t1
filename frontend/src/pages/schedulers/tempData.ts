@@ -1,8 +1,7 @@
 export const tempUser = {
     image: "https://pbs.twimg.com/media/Fv4x0M5aEAEoRFc?format=jpg&name=large",
     username: "sussy",
-    nameFirst: "Not",
-    nameLast: "Sus",
+    name: "Not Sus",
     bio: "help girl i dont wanna fail this subject!!!!!!! male | 69 | looking for a pardner to carry me",
     hrsPw: 69,
     grade: "HD",
@@ -33,8 +32,7 @@ export const tempUser = {
 export const tempUser2 = {
   image: "",
   username: "peepeepoopoo",
-  nameFirst: "Hayden",
-  nameLast: "Smith",
+  name: "Hayden Smith",
   bio: "aiodhgjdahgfjskdfg sashjsdhjg aaaaaaa sdg",
   hrsPw: 33,
   grade: "HD",

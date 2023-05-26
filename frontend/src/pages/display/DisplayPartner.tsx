@@ -1,16 +1,12 @@
-import cross from '../assets/cross.svg';
-import tick from '../assets/tick.svg';
-import { tempUser, tempUser2 } from './schedulers/tempData';
-import defaultPfp from "../assets/tempPfp.jpeg"
+import cross from '../../assets/cross.svg';
+import tick from '../../assets/tick.svg';
+import { tempUser, tempUser2 } from '../schedulers/tempData';
+import defaultPfp from "../../assets/tempPfp.jpeg"
+import { useNavigate } from 'react-router-dom';
 
 export default function DisplayPartner() {
-
-  // CHANGE THIS
-  const getUser = () => {
-    return tempUser;
-  }
-
-  const user = getUser();
+  const navigate = useNavigate();
+  const user = tempUser;
 
   const getTutes = () => {
     return user.prefTute.map(tute => 
@@ -48,13 +44,16 @@ export default function DisplayPartner() {
             <div className="flex flex-1 p-4 flex-col md:flex-row bg-gradient-to-r from-theme-dPink to-theme-yellow items-center overflow-auto">
 
               <div className="flex w-1/3 justify-center items-center">
-                <img src={user.image ? user.image : defaultPfp} className="rounded-3xl object-cover h-24 w-24 object-center border-4 border-theme-lPink"></img>
+                <img 
+                  src={user.image ? user.image : defaultPfp} 
+                  className="rounded-3xl object-cover h-24 w-24 object-center border-4 border-theme-lPink">
+                </img>
               </div>
 
               <div className="flex-wrap w-2/3 md:text-left text-center m-2">
-                <p className="text-xl font-bold">{user.nameFirst} {user.nameLast}</p>
-                <p className="text-sm opacity-60">@{user.username}</p>
-                <p className="text-sm">{user.bio}</p>
+                <p className="text-xl font-bold">{user.name ? user.name : "--"}</p>
+                <p className="text-sm opacity-60">@{user.username ? user.username : ""}</p>
+                <p className="text-sm">{user.bio ? user.bio : ""}</p>
               </div>
               
             </div>
@@ -64,22 +63,22 @@ export default function DisplayPartner() {
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">Hours pw: </p>
-                  <p>{user.hrsPw}</p>
+                  <p>{user.hrsPw ? user.hrsPw : "--"}</p>
                 </div>
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">desired grade: </p>
-                  <p>{user.grade}</p>
+                  <p>{user.grade ? user.grade : "--"}</p>
                 </div>
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">mbti: </p>
-                  <p>{user.mbti}</p>
+                  <p>{user.mbti ? user.mbti : "--"}</p>
                 </div>
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">preferred platforms: </p>
-                  <p>{user.platform}</p>
+                  <p>{user.platform ? user.platform : "--"}</p>
                 </div>
 
               </div>
