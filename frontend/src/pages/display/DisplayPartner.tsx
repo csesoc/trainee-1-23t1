@@ -1,18 +1,56 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { doc, DocumentData, getDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
+import { signOut, User } from "firebase/auth";
+
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
-import { tempUser, tempUser2 } from '../schedulers/tempData';
-import defaultPfp from "../../assets/tempPfp.jpeg"
-import { useNavigate } from 'react-router-dom';
+import defaultPfp from "../../assets/tempPfp.jpeg";
+
 
 export default function DisplayPartner() {
   const navigate = useNavigate();
-  const user = tempUser;
+  const [user, setUser] = useState<User | null>(null);
+  const [tutes, setTutes] = useState<Number[]>([]);
+  const [times, setTimes] = useState<Number[]>([]);
+  const [userSnap, setSnap] = useState<DocumentData | null>(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      setUser(user);
+      getUserData();
+    });
+  }, [user]);
+
+
+
+  const getUserData = async () => {
+    try {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          setSnap(userSnap);
+          setTimes(userSnap.data().times ?? []);
+          setTutes(userSnap.data().tutes ?? []);
+        } else {
+          navigate('/');
+        }
+      }
+    } catch (e) {
+      alert(e);
+    }
+  };
+
 
   const getTutes = () => {
-    return user.prefTute.map(tute => 
+    return tutes.map(tute => 
       <div className="bg-theme-yellow h-fit pb-8 rounded-md m-4 text-xs drop-shadow-md p-2">
-        <p>{tute.time}</p>
-        <p>{tute.location}</p>
+        <p>{"tute.time"}</p>
+        <p>{"tute.location"}</p>
       </div>
     );
   }
@@ -20,7 +58,7 @@ export default function DisplayPartner() {
   const getTimes = () => {
     let content = [];
     for (let i = 0; i < 112; i++) {
-      if (user.availability.get(i) == 1) {
+      if (times.includes(i)) {
         content.push(
           <div className="bg-alt-green w-full border-theme-black border-opacity-30 border"><div className="h-3"></div></div>
         )
@@ -45,15 +83,15 @@ export default function DisplayPartner() {
 
               <div className="flex w-1/3 justify-center items-center">
                 <img 
-                  src={user.image ? user.image : defaultPfp} 
+                  src={userSnap?.data().image ?? defaultPfp} 
                   className="rounded-3xl object-cover h-24 w-24 object-center border-4 border-theme-lPink">
                 </img>
               </div>
 
               <div className="flex-wrap w-2/3 md:text-left text-center m-2">
-                <p className="text-xl font-bold">{user.name ? user.name : "--"}</p>
-                <p className="text-sm opacity-60">@{user.username ? user.username : ""}</p>
-                <p className="text-sm">{user.bio ? user.bio : ""}</p>
+                <p className="text-xl font-bold">{userSnap?.data().name ?? "--"}</p>
+                <p className="text-sm opacity-60">@{userSnap?.data().username ?? "--"}</p>
+                <p className="text-sm">{userSnap?.data().bio ?? ""}</p>
               </div>
               
             </div>
@@ -63,22 +101,22 @@ export default function DisplayPartner() {
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">Hours pw: </p>
-                  <p>{user.hrsPw ? user.hrsPw : "--"}</p>
+                  <p>{userSnap?.data().hrsPw ?? "--"}</p>
                 </div>
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">desired grade: </p>
-                  <p>{user.grade ? user.grade : "--"}</p>
+                  <p>{userSnap?.data().wam ?? "--"}</p>
                 </div>
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">mbti: </p>
-                  <p>{user.mbti ? user.mbti : "--"}</p>
+                  <p>{userSnap?.data().mbti ?? "--"}</p>
                 </div>
 
                 <div className="m-4 w-1/4 text-center">
                   <p className="text-xs">preferred platforms: </p>
-                  <p>{user.platform ? user.platform : "--"}</p>
+                  <p>{userSnap?.data().platform ?? "--"}</p>
                 </div>
 
               </div>

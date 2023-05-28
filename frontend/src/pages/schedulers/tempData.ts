@@ -25,7 +25,7 @@ export const tempUser = {
         location: "Strings Lab",
       }
     ],
-    availability: new Map([[21, 1], [16, 1], [28, 1], [1, 1], [0, 1]]),
+    availability: [],
   }
 
 

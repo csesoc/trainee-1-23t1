@@ -1,17 +1,48 @@
-import { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../../firebase';
+import { User } from "firebase/auth";
+
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
-import {tempUser, tempUser2} from './tempData'
 import { showTime, weekDays } from '../../components/Timetable';
 
 const ScheduleSelector = () => {
-	//TEMP!!!!!
-	const user = tempUser;
+	const navigate = useNavigate();
+	const[user, setUser] = useState<User | null>(null);
+	const [data, setData] = useState<Number[]>([]);
 
-	// stores user time hashmap into data array
-	const [data, setData] = useState(Array.from(user.availability.keys()));
-	console.log(data);
+	useEffect(() => {
+		auth.onAuthStateChanged(user => {
+			setUser(user);
+			getUserData();
+		});
+	}, [user]);
+
+	const getUserData = async () => {
+		try {
+			if (user) {
+				const userRef = doc(db, "users", user.uid);
+				const userSnap = await getDoc(userRef);
+
+				if (userSnap.exists()) {
+					if (userSnap.data().times) {
+						setData(userSnap.data().times);
+					} else {
+						setData([]);
+						updateDoc(userRef, {times: []});
+					}
+				} else {
+					setData([]);
+					navigate('/');
+				}
+			}
+		} catch (e) {
+			alert(e);
+		}
+	};
 
 	// renders cells
 	const showCells = () => {
@@ -50,14 +81,19 @@ const ScheduleSelector = () => {
 	}
 
 	const saveData = () => {
-		console.log('save\n');
-		user.availability.clear();
-		data.map(x => user.availability.set(x, 1));
-		console.log(user.availability);
+		try {
+			if (user) {
+				const userRef = doc(db, "users", user.uid);
+				updateDoc(userRef, {times: data});
+				navigate('/');
+			}
+		} catch (e) {
+			alert(e);
+		}
 	}
 
 	const closeTemp = () => {
-		console.log('close\n');
+		navigate('/');
 	}
 
 	return (

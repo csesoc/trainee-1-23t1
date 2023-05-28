@@ -123,7 +123,7 @@ const TuteSelector = () => {
 		try {
 			if (user) {
 				const userRef = doc(db, "users", user.uid);
-				updateDoc(userRef, {tutes: tutes})
+				updateDoc(userRef, {tutes: tutes});
 				navigate('/');
 			}
 		} catch (e) {
