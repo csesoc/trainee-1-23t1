@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { doc, DocumentData, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
-import { signOut, User } from "firebase/auth";
+import { User } from "firebase/auth";
 
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
