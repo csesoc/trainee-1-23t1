@@ -10,6 +10,7 @@ import tick from '../../assets/tick.svg';
 
 import { getAllTutes } from './tuteSelector_fns';
 import { showTime, weekDays } from '../../components/Timetable';
+import PageTemplate from '../../components/PageTemplate';
 
 const TuteSelector = () => {
 	const navigate = useNavigate();
@@ -132,45 +133,47 @@ const TuteSelector = () => {
 	}
 
 	return (
-		<div className="flex justify-center items-center w-full h-screen bg-theme-black">
-			<div className="absolute container h-3/4 w-8/12 justify-center shadow-lg empty:bg-theme-white -rotate-3"></div>
-			<div className=" overflow-auto absolute container h-3/4 w-8/12 drop-shadow-lg bg-theme-white p-6">
-				<div className="flex h-full w-full">
+		<PageTemplate showYellowBg={false}>
+			<div className="flex justify-center items-center w-full h-screen bg-theme-black">
+				<div className="absolute container h-3/4 w-8/12 justify-center shadow-lg empty:bg-theme-white -rotate-3"></div>
+				<div className=" overflow-auto absolute container h-3/4 w-8/12 drop-shadow-lg bg-theme-white p-6">
+					<div className="flex h-full w-full">
 
-					<div className="grid w-1/12 grid-cols-1 leading-6 h-fit text-center text-xs">
-						<div className="bg-theme-white rounded-lg"><div className="h-6"></div></div>
-						{showTime()}
-					</div>
-
-					<div className="flex-col w-7/12 h-full">
-						<div className="grid grid-cols-5 leading-6 h-fit bg-theme-white text-center text-xs">
-							{weekDays(5)}
+						<div className="grid w-1/12 grid-cols-1 leading-6 h-fit text-center text-xs">
+							<div className="bg-theme-white rounded-lg"><div className="h-6"></div></div>
+							{showTime()}
 						</div>
-						<div className="grid grid-cols-5 leading-6 h-fit bg-theme-white text-center text-xs border-black border-2">
-							{showCells()}
+
+						<div className="flex-col w-7/12 h-full">
+							<div className="grid grid-cols-5 leading-6 h-fit bg-theme-white text-center text-xs">
+								{weekDays(5)}
+							</div>
+							<div className="grid grid-cols-5 leading-6 h-fit bg-theme-white text-center text-xs border-black border-2">
+								{showCells()}
+							</div>
 						</div>
-					</div>
 
-					<div className="flex-col w-4/12 p-6 overflow-scroll">
-						{tuteBlocks()}
-					</div>
+						<div className="flex-col w-4/12 p-6 overflow-scroll">
+							{tuteBlocks()}
+						</div>
 
+					</div>
+				</div>
+
+				<div className="relative top-1/3 bg-theme-cream w-fit h-fit px-4 rounded-full shadow-md items-center">
+					<button 
+						onClick={() => saveData()}
+						className="relative bg-theme-blue hover:bg-theme-yellow p-4 rounded-full shadow-md m-2">
+						< img src={tick} alt="save" width="30"/>
+					</button>
+					<button
+						onClick={() => navigate('/')}
+						className="relative bg-theme-red hover:bg-theme-yellow p-4 rounded-full shadow-md m-2">
+						< img src={cross} alt="cancel" width="30"/>
+					</button>
 				</div>
 			</div>
-
-			<div className="relative top-1/3 bg-theme-cream w-fit h-fit px-4 rounded-full shadow-md items-center">
-				<button 
-					onClick={() => saveData()}
-					className="relative bg-theme-blue hover:bg-theme-yellow p-4 rounded-full shadow-md m-2">
-					< img src={tick} alt="save" width="30"/>
-				</button>
-				<button
-					onClick={() => navigate('/')}
-					className="relative bg-theme-red hover:bg-theme-yellow p-4 rounded-full shadow-md m-2">
-					< img src={cross} alt="cancel" width="30"/>
-				</button>
-			</div>
-		</div>
+		</PageTemplate>
 	);
 }
 
