@@ -35,9 +35,7 @@ export default function DisplayPartner() {
           setSnap(userSnap);
           setTimes(userSnap.data().times ?? []);
           setTutes(userSnap.data().tutes ?? []);
-        } else {
-          navigate('/');
-        }
+        } 
       }
     } catch (e) {
       alert(e);

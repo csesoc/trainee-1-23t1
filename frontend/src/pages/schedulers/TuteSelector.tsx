@@ -47,7 +47,6 @@ const TuteSelector = () => {
 					}
 				} else {
 					setTutes([]);
-					navigate('/');
 				}
 			}
 		} catch (e) {

@@ -37,7 +37,6 @@ const ScheduleSelector = () => {
 					}
 				} else {
 					setData([]);
-					navigate('/');
 				}
 			}
 		} catch (e) {

@@ -36,8 +36,6 @@ const SharedSchedule = () => {
 
 				if (userSnap.exists()) {
 					setUTimes(userSnap.data().times ?? []);
-				} else {
-					navigate('/');
 				}
 			}
 		} catch (e) {

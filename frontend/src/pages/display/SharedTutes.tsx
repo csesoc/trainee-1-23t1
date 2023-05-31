@@ -37,8 +37,6 @@ const SharedTutes = () => {
 
 				if (userSnap.exists()) {
 					setUTutes(userSnap.data().tutes ?? []);
-				} else {
-					navigate('/');
 				}
 			}
 		} catch (e) {
