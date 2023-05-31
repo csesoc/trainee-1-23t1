@@ -131,11 +131,6 @@ const TuteSelector = () => {
 		}
 	}
 
-	const cancelClose = () => {
-		navigate('/');
-	}
-
-
 	return (
 		<div className="flex justify-center items-center w-full h-screen bg-theme-black">
 			<div className="absolute container h-3/4 w-8/12 justify-center shadow-lg empty:bg-theme-white -rotate-3"></div>
@@ -170,7 +165,7 @@ const TuteSelector = () => {
 					< img src={tick} alt="save" width="30"/>
 				</button>
 				<button
-					onClick={() => cancelClose()}
+					onClick={() => navigate('/')}
 					className="relative bg-theme-red hover:bg-theme-yellow p-4 rounded-full shadow-md m-2">
 					< img src={cross} alt="cancel" width="30"/>
 				</button>

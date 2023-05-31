@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import cross from '../assets/cross.svg';
+
 // render column headings (time)
 export const showTime = () => {
     let content = [];
@@ -14,3 +17,33 @@ export const weekDays = (numDays: Number) => {
         .filter(day => days.indexOf(day) < numDays)
         .map(day => <div>{day}</div>);
 }
+
+// colour key for displaytime/tute pages
+export const ColourKey = () => {
+    const navigate = useNavigate();
+    return (
+    <div className="relative flex top-1/3 bg-theme-cream w-fit h-fit px-4 rounded-full shadow-md items-center">
+        <div className="flex">
+            <div className="flex items-center">
+                <div className="relative bg-alt-green rounded-full w-8 h-8 m-4"/>
+                <p className="text-xs text-center">Shared <br/> Preferred</p>
+            </div>
+
+            <div className="flex items-center">
+                <div className="relative bg-alt-blue rounded-full w-8 h-8 m-4"/>
+                <p className="text-xs text-center">Your <br/> Preferred</p>
+            </div>
+
+            <div className="flex items-center">
+                <div className="relative bg-alt-yellow rounded-full w-8 h-8 m-4"/>
+                <p className="text-xs text-center">Their <br/> Preferred</p>
+            </div>
+        </div>
+
+        <button
+            onClick={() => navigate('/users/profile')}
+            className="relative p-4 rounded-full hover:shadow-md m-2">
+            <img src={cross} alt="cancel" width="30"/>
+        </button>
+    </div>
+)};
