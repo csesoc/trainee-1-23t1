@@ -18,15 +18,15 @@ const Login = () => {
   const login = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate('/');
     } catch (e) {
-      alert(e);
+      alert("Invalid username or password");
     }
   };
 
   const onSubmit = () => {
     if (email && password) {
       login(email, password);
-      navigate('/');
     }
   };
 
