@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 type Props = {
    partnrInfo: {
@@ -9,7 +8,7 @@ type Props = {
       year: number
       degree: string
       photo: string;
-      desiredMark: string
+      mbti: string,
       //hours: number
       communication: string
    };
@@ -46,7 +45,7 @@ function PartnrDisplay({partnrInfo}: Props) {
             <p className='text-sm'>{partnrInfo.degree}</p>
             <div className='flex justify-between'>
                <p className='text-sm'><b>Desired Grade </b></p>
-               <p className='text-sm'>{partnrInfo.desiredMark}</p>
+               <p className='text-sm'>HD</p>
             </div>
             <div className='flex justify-between'>
                <p className='text-sm'><b>Hours per week </b></p>

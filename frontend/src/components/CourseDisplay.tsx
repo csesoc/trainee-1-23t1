@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { useAuth } from '../context/AuthContext';
 
 type Props = {
    courseInfo: {
@@ -16,20 +17,19 @@ function CourseDisplay({courseInfo}: Props) {
       navigate(`/courses/${courseInfo.courseId}/partnrs`);
    }
 
-   const { zid } = useParams();
-   console.log(zid);
+   const { authUid } = useAuth();
 
    const addUserToCourse = async () => {
       try {
-         if (zid) {
-            const userRef = doc(db, 'users', zid);
+         if (authUid) {
+            const userRef = doc(db, 'users', authUid);
             await updateDoc(userRef, {
                courses: arrayUnion(courseInfo.courseId)
             });
          }
          const courseRef = doc(db, 'courses', courseInfo.courseId);
          await updateDoc(courseRef, {
-            users: arrayUnion(zid)
+            users: arrayUnion(authUid)
          });
       } catch (e) {
          alert(e);

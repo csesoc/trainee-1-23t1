@@ -53,8 +53,6 @@ const App = () => {
     fetchCourseDetails();
   }, []);
 
-  console.log(user);
-  console.log(courseList)
   return (
     <Router>
       <Routes>
