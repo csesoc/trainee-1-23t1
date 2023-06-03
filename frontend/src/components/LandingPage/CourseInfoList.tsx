@@ -1,42 +1,33 @@
 import { useNavigate, Link } from 'react-router-dom';
+import { Course, Partner } from '../../types';
 
-const temp = [
-  {
-    course: 'COMP1531',
-    partners: 'Ollie', // accepted partners
-    tutorials: 'T09A, T13B', // tutorial preferences
-  },
-  {
-    course: 'COMP3821',
-    partners: 'Jasmine, Chloe, Nicole',
-    tutorials: '',
-  },
-  {
-    course: 'COMP2511',
-    partners: '',
-    tutorials: 'F11A, F13B',
-  },
-  {
-    course: 'COMP3891',
-    partners: '',
-    tutorials: '',
-  },
-];
+interface Props {
+  courses: Course[];
+  partners: Partner[];
+}
 
-const CourseInfo = () => {
+const hasPartners = (code: string, partners: Partner[]) => {
+  return !!partners.find((p) => p.course === code);
+};
+
+const hasSelection = (classes: string[]) => {
+  return classes.length > 0;
+};
+
+const CourseInfo = ({ courses, partners }: Props) => {
   const navigate = useNavigate();
 
   return (
     <div className="w-1/5 float-right mb-[122px] m-10 overflow-y-auto max-lg:w-full max-lg:m-2">
-      {temp.map((course) => (
+      {courses?.map((course) => (
         <div>
-          <button className="p-3 w-full mb-4 bg-theme-red" onClick={() => navigate(course.course)}>
-            <p className="text-left font-bold">{course.course}</p>
+          <button className="p-3 w-full mb-4 bg-theme-red" onClick={() => navigate(course.code)}>
+            <p className="text-left font-bold">{course.code}</p>
 
             <div className="flex items-center m-2">
               <input
                 disabled
-                checked={course.partners.length > 0}
+                checked={hasPartners(course.code, partners)}
                 id="disabled-checkbox"
                 type="checkbox"
                 value=""
@@ -50,7 +41,7 @@ const CourseInfo = () => {
             <div className="flex items-center m-2">
               <input
                 disabled
-                checked={course.tutorials.length > 0}
+                checked={hasSelection(course.classes)}
                 id="disabled-checkbox"
                 type="checkbox"
                 value=""
