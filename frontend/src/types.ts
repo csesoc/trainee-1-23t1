@@ -7,11 +7,3 @@ export interface Partner {
   id: string;
   course: string;
 }
-
-export interface InvitationInfo {
-  name: string;
-  handle: string;
-  zid: string;
-  photo: string;
-  course: string;
-}

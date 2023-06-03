@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, getDocs } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
 import PageTemplate from '../components/PageTemplate';
@@ -16,6 +16,7 @@ const Register = () => {
   const [validName, setValidName] = useState(false);
   const [validZid, setValidZid] = useState(false);
   const [validPass, setValidPass] = useState(false);
+  const [handles, setHandles] = useState<string[]>([]);
 
   const navigate = useNavigate();
   const navToLogin = () => {
@@ -24,6 +25,41 @@ const Register = () => {
   const navToDetails = () => {
     navigate(`/admin/auth/details/${zid}`);
   };
+
+  useEffect(() => {
+    const fetchHandles = async () => {
+      const snapshot = await getDocs(collection(db, 'users'));
+      let handles: string[] = [];
+      snapshot.forEach((doc) => {
+        if (doc.data().handle) {
+          handles.push(doc.data().handle);
+        }
+      });
+      setHandles(handles);
+    };
+    fetchHandles();
+  }, []);
+
+  const isHandleUsed = (handle: string) => {
+    if (handles.find((h) => h === handle)) {
+      return true;
+    }
+    return false;
+  };
+
+  const generateHandle = (name: string) => {
+    let handleStr = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    let endNumber = '';
+    while (isHandleUsed(handleStr + endNumber)) {
+      if (endNumber === '') {
+        endNumber = '0';
+      } else {
+        endNumber = (parseInt(endNumber) + 1).toString();
+      }
+    }
+    return handleStr + endNumber;
+  };
+
   // Adds a new user to firebase.
   const register = async (email: string, password: string) => {
     try {
@@ -37,7 +73,9 @@ const Register = () => {
       await setDoc(doc(usersRef, user.uid), {
         name: name,
         email: user.email,
+        handle: generateHandle(name),
         partners: [],
+        pendingInvitations: [],
         courses: [],
         zid: zid,
       });
@@ -51,7 +89,7 @@ const Register = () => {
       register(email, password);
       navToDetails();
     } else {
-      if (!validZid) alert('prisoner number required');
+      if (!validZid) alert('prisoner number required (without the z)');
       if (!validEmail) alert('plox gib valid email');
       if (!validName) alert('unfortunately, you must be named');
     }
@@ -75,7 +113,7 @@ const Register = () => {
 
   const checkName = () => {
     const input = document.getElementById('name-input');
-    if (name !== '') {
+    if (name !== '' && RegExp('[0-9]{7}').test(name)) {
       if (input) {
         input.classList.remove('border-1', 'border-rose-500');
         input.classList.add('border-0');
@@ -134,7 +172,7 @@ const Register = () => {
                 id="zid-input"
                 type="text"
                 className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0"
-                placeholder="your prisoner number"
+                placeholder="your prisoner number (without the z)"
                 onChange={(e) => setZid(e.target.value)}
                 onBlur={checkZid}
               />

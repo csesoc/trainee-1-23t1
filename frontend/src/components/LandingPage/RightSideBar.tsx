@@ -6,7 +6,7 @@ import defaultPfp from '../../assets/defaultPfp.svg';
 import { getDocs, collection, DocumentData } from 'firebase/firestore';
 import { db } from '../../firebase';
 
-import { InvitationInfo, Partner } from '../../types';
+import { Partner } from '../../types';
 
 interface Props {
   user: DocumentData | null;
@@ -40,9 +40,6 @@ const ProfileInfo = ({ user }: DocumentData) => {
       </div>
     );
   }
-
-  console.log(user);
-  console.log(user.year);
 
   return (
     <div className="bg-theme-yellow w-full p-5">
