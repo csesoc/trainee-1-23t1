@@ -85,7 +85,7 @@ const ScheduleSelector = () => {
 			if (user) {
 				const userRef = doc(db, "users", user.uid);
 				updateDoc(userRef, {times: data});
-				navigate('/');
+				navigate('/profile/details/edit');
 			}
 		} catch (e) {
 			alert(e);
@@ -122,7 +122,7 @@ const ScheduleSelector = () => {
 						< img src={tick} alt="save" width="30"/>
 					</button>
 					<button
-						onClick={() => navigate('/')}
+						onClick={() => navigate('/profile/details/edit')}
 						className="relative bg-theme-red hover:bg-theme-yellow p-4 rounded-full shadow-md m-2">
 						< img src={cross} alt="cancel" width="30"/>
 					</button>

@@ -6,7 +6,23 @@ export const tempUser = {
     hrsPw: 69,
     grade: "HD",
     mbti: "ISTP",
-    platform: "discord",
+    comms: "discord",
+    courses: [
+      {
+        courseName: "1531",
+        tutes: [5, 10, 32],
+        hrsPw: 0,
+        liked: [],
+        disliked: [],
+      }, 
+      {
+        courseName: "2511",
+        tutes: [5, 10, 32],
+        hrsPw: 79,
+        liked: [],
+        disliked: [],
+      }
+    ],
     tutes: [5, 10, 32],
     prefTute: [
       {

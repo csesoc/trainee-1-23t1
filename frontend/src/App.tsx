@@ -17,6 +17,7 @@ import SharedSchedule from './pages/display/SharedSchedule';
 import SharedTutes from './pages/display/SharedTutes';
 import ScheduleSelector from './pages/schedulers/ScheduleSelector';
 import TuteSelector from './pages/schedulers/TuteSelector';
+import EditDetails from './pages/EditDetails';
 
 const App = () => {
   const { user, setUser } = useContext(AppContext);
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="/admin/auth/login" element={<Login />} />
         <Route path="/admin/auth/register" element={<Register />} />
         <Route path="/users/profile" element={<DisplayPartner />}/>
+        <Route path="/profile/details/edit" element={<EditDetails />} />
         <Route path="/profile/tute/edit" element={<TuteSelector />} />
         <Route path="/profile/time/edit" element={<ScheduleSelector />} />
         <Route path="/users/tutes" element={<SharedTutes />} />
