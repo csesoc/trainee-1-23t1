@@ -11,7 +11,7 @@ import PageTemplate from '../../components/PageTemplate';
 import defaultPfp from "../../assets/tempPfp.jpeg";
 
 
-export default function DisplayPartner() {
+const DisplayPartner = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [tutes, setTutes] = useState<Number[]>([]);
@@ -161,3 +161,4 @@ export default function DisplayPartner() {
     </PageTemplate>
   );
 }
+export default DisplayPartner;

@@ -8,15 +8,17 @@ import { User } from "firebase/auth";
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
 
-import { getAllTutes } from './tuteSelector_fns';
 import { showTime, weekDays } from '../../components/Timetable';
 import PageTemplate from '../../components/PageTemplate';
+import { getCourseData, getCourses } from '../../data/datafns';
+
+console.log(getCourseData("COMP1531"));
 
 const TuteSelector = () => {
 	const navigate = useNavigate();
 	const [user, setUser] = useState<User | null>(null);
 	const [tutes, setTutes] = useState<Number[]>([]);
-	const [allTutes] = useState(getAllTutes("COMP2521"));
+	const [allTutes] = useState(getCourseData("COMP1531"));
 
 	/**
 	 * Gets user data and stores it in 'tutes'
@@ -25,7 +27,7 @@ const TuteSelector = () => {
 	 * if user is invalid, redirects to landing page
 	 */
 	useEffect(() => {
-		  auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
 			setUser(user);
 			getUserData();
 		});
@@ -33,21 +35,21 @@ const TuteSelector = () => {
 
 	const getUserData = async () => {
 		try {
-			if (user) {
-				const userRef = doc(db, "users", user.uid);
-				const userSnap = await getDoc(userRef);
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
 
-				if (userSnap.exists()) {
-					if (userSnap.data().tutes) {
-						setTutes(userSnap.data().tutes);
+        if (userSnap.exists()) {
+          if (userSnap.data().tutes) {
+            setTutes(userSnap.data().tutes);
 
-					} else {
-						setTutes([]);
-						updateDoc(userRef, {tutes: []});
-					}
-				} else {
-					setTutes([]);
-				}
+          } else {
+            setTutes([]);
+            updateDoc(userRef, {tutes: []});
+          }
+        } else {
+          setTutes([]);
+        }
 			}
 		} catch (e) {
 			alert(e);
@@ -75,7 +77,7 @@ const TuteSelector = () => {
 						</button>
 					</div>
 				);
-			} else if (allTutes.includes(i)) {
+			} else if (allTutes.find((x: { index: any; }) => x.index == i)) {
 				// tute-available cell
 				content.push(				
 					<div className="bg-theme-white hover:bg-stone-300 rounded-md h-7">
@@ -108,6 +110,7 @@ const TuteSelector = () => {
 
 	//updates data if cell is selected/deselected
 	const updateTutes = (value:number) => {
+    console.log(value);
 		if (tutes.includes(value)) {
 			setTutes(tutes.filter(tutes => tutes != value));
 		} else {

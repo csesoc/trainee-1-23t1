@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PageTemplate from '../components/PageTemplate';
 
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
 import { useAuth } from '../context/AuthContext';
 import { User } from 'firebase/auth';
+
+import PageTemplate from '../components/PageTemplate';
 
 // want to update ur password?? haha too bad
 // perform checks in the future but rn we ball
@@ -221,13 +222,13 @@ const EditDetails = () => {
 							</a>
 						</p>
 
-						<div className="flex flex-col md:flex-row justify-center items-stretch h-fit pb-10 mt-10">   
+						<div className="flex flex-col md:flex-row justify-center items-stretch h-1/3 pb-10 mt-10">   
 							<button 
 							onClick={() => navigate('/profile/tute/edit')}
 							className="bg-theme-white hover:bg-gradient-to-b hover:from-theme-cream flex-1 p-4 md:w-1/2">
 								<p className="font-bold text-theme-dPink">Preferred tute times: </p>
 								<div 
-									className="container h-full overflow-scroll">
+									className="container overflow-scroll">
 									{getTutes()}
 								</div>
 							</button>
@@ -236,7 +237,7 @@ const EditDetails = () => {
 							onClick={() => navigate('/profile/time/edit')}
 							className="bg-theme-white hover:bg-gradient-to-b hover:from-theme-cream flex-1 p-4 md:w-1/2">
 								<p className="font-bold text-theme-dPink">Working time availability: </p>
-								<div className="flex h-fit rounded-md m-4 overflow-scroll">
+								<div className="flex rounded-md m-4 overflow-scroll">
 									<div className="grid grid-cols-7 w-full border-theme-black border-2">
 										{getTimes()}
 									</div>
