@@ -97,7 +97,7 @@ const Register = () => {
 
   const checkZid = () => {
     const input = document.getElementById('zid-input');
-    if (zid !== '') {
+    if (zid !== '' && RegExp('[0-9]{7}').test(zid)) {
       if (input) {
         input.classList.remove('border-1', 'border-rose-500');
         input.classList.add('border-0');
@@ -113,7 +113,7 @@ const Register = () => {
 
   const checkName = () => {
     const input = document.getElementById('name-input');
-    if (name !== '' && RegExp('[0-9]{7}').test(name)) {
+    if (name !== '') {
       if (input) {
         input.classList.remove('border-1', 'border-rose-500');
         input.classList.add('border-0');
