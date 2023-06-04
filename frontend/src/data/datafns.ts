@@ -23,7 +23,6 @@ export const getCourseData = (courseCode: string) => {
   return courseIndex;
 }
 
-
 /**
  * Returns array of all comp courses for the term
  */

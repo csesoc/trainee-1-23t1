@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc, DocumentData } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
-import { User } from "firebase/auth";
+import { applyActionCode, User } from "firebase/auth";
 
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
@@ -17,8 +17,8 @@ console.log(getCourseData("COMP1531"));
 const TuteSelector = () => {
 	const navigate = useNavigate();
 	const [user, setUser] = useState<User | null>(null);
-	const [tutes, setTutes] = useState<Number[]>([]);
 	const [allTutes] = useState(getCourseData("COMP1531"));
+  const [tutes, setTutes] = useState<any>([]);
 
 	/**
 	 * Gets user data and stores it in 'tutes'
@@ -41,14 +41,12 @@ const TuteSelector = () => {
 
         if (userSnap.exists()) {
           if (userSnap.data().tutes) {
-            setTutes(userSnap.data().tutes);
-
+            setTutes(userSnap.data().courses
+                      .find((x: { name: string; }) => x.name == "COMP1531")
+                      .classes.map((x: { index: any; id: any; }) => ({index: x.index, id: x.id})));
           } else {
-            setTutes([]);
             updateDoc(userRef, {tutes: []});
           }
-        } else {
-          setTutes([]);
         }
 			}
 		} catch (e) {
@@ -56,6 +54,7 @@ const TuteSelector = () => {
 		}
 	};
 
+  console.log()
 
 	/**
 	 * renders cells upon refresh in 1 of 3 colours:
@@ -66,14 +65,14 @@ const TuteSelector = () => {
 	const showCells = () => {
 		let content = [];
 		for (let i = 0; i < 80; i++) {
-			if (tutes.includes(i)) {
+			if (tutes.find((x: { index: number; }) => x.index == i)) {
 				// tute-selected cell
 				content.push(
 					<div className="bg-theme-white hover:bg-stone-300 rounded-md h-7">
 						<button 
 							onClick={() => updateTutes(i)} 
 							className="h-7 w-full border-black border border-opacity-30 bg-alt-green hover:bg-opacity-50">
-							<p>{tutes.indexOf(i) + 1}</p>
+							<p>{tutes.indexOf(tutes.find((x: { index: number; }) => x.index ==i)) + 1}</p>
 						</button>
 					</div>
 				);
@@ -100,23 +99,40 @@ const TuteSelector = () => {
 
 	// renders tuteblocks (right side bar things)
 	const tuteBlocks = () => {
-		return tutes.map(tute => 						
-			<div className="bg-alt-green rounded-md p-2 pb-5 mb-2 text-xs">
-				<p>Brass Lab J17 305</p>
-				<p>13/25 (Weeks 1-5, 7-10)</p>
-			</div>
-		);
+		return tutes.map((tute: { id: string; }) => tuteInfo(tute.id));
 	}
 
-	//updates data if cell is selected/deselected
-	const updateTutes = (value:number) => {
-    console.log(value);
-		if (tutes.includes(value)) {
-			setTutes(tutes.filter(tutes => tutes != value));
-		} else {
-			setTutes(tutes => [...tutes, value]);
-		}
-	}
+  const tuteInfo = (code:string) => {
+    if (!(getCourses()
+    .find((x: { courseCode: string; }) => x.courseCode =="COMP1531").classes)
+    .find((x: { classID: string; }) => x.classID == code)) {return;}
+    return ( 						
+      <div className="bg-alt-green rounded-md p-2 pb-5 mb-2 text-xs">
+        <p>{(getCourses()
+              .find((x: { courseCode: string; }) => x.courseCode =="COMP1531").classes)
+              .find((x: { classID: string; }) => x.classID == code).times[0].location}</p>
+        <p>{(getCourses()
+              .find((x: { courseCode: string; }) => x.courseCode =="COMP1531").classes)
+              .find((x: { classID: string; }) => x.classID == code).times[0].weeks}</p>
+      </div>
+    );
+  }
+
+    //updates data if cell is selected/deselected
+    const updateTutes = (value:number) => {
+      console.log(value);
+      if (tutes.find((x: { index: number; }) => x.index == value) != undefined) {
+        setTutes(tutes.filter((i: { index: number; }) => i.index != value));
+      } else {
+        const code = {
+          index: value,
+          id: String(getCourses()
+              .find((x: { courseCode: string; }) => x.courseCode =="COMP1531").classes
+              .find((x: { index: number; }) => x.index == value).classID)
+        }
+        setTutes((x: any) => [...x, code])
+      }
+    }
 
 
 	/**
@@ -126,8 +142,16 @@ const TuteSelector = () => {
 		try {
 			if (user) {
 				const userRef = doc(db, "users", user.uid);
-				updateDoc(userRef, {tutes: tutes});
-				navigate('/profile/details/edit');
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          let aaaa = userSnap.data().courses;
+          aaaa = aaaa.filter((x: { name: string; }) => x.name != "COMP1531");
+          aaaa.push({
+            name: "COMP1531",
+            classes: tutes});
+          updateDoc(userRef, {courses: aaaa});
+          navigate('/profile/details/edit');
+        }
 			}
 		} catch (e) {
 			alert(e);

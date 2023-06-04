@@ -104,8 +104,7 @@ const EditDetails = () => {
 	const getTutes = () => {
 		return tutes.map(tute => 
 			<div className="bg-theme-yellow h-fit pb-8 rounded-md m-4 text-xs drop-shadow-md p-2">
-				<p>{"tute.time"}</p>
-				<p>{"tute.location"}</p>
+				<button>CourseName</button>
 			</div>
 		);
 	}
