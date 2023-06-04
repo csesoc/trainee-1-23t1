@@ -1,7 +1,8 @@
+import { createContext, ReactNode, useContext, useEffect, useMemo } from 'react';
+
 import { onAuthStateChanged } from 'firebase/auth';
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
-import { auth, db } from '../firebase';
-import { doc, DocumentData, getDoc } from 'firebase/firestore';
+import { auth } from '../firebase';
+
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 interface IAuthContext {
