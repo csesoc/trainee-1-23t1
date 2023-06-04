@@ -19,7 +19,7 @@ const Details = () => {
   const navToLandingPage = () => {
     addDetailsToUser();
     navigate('/');
-  };
+  }
 
   const { user, setUser } = useContext(AppContext);
   const { authUid } = useAuth();
@@ -60,20 +60,18 @@ const Details = () => {
             <label className="text-sm">Degree</label>
             <input
               type="text"
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" 
               placeholder="What do you study?"
-              onChange={(e) => setDegree(e.target.value)}
-            />
+              onChange={(e) => setDegree(e.target.value)}/>
             <label className="text-sm mt-4">Year of Study</label>
             <input
               type="number"
               className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
               placeholder="1"
-              onChange={(e) => setYear(e.target.valueAsNumber)}
-            />
+              onChange={(e) => setYear(e.target.valueAsNumber)}/>
             <label className="text-sm mt-4">WAM (optional)</label>
-            <select
-              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm"
+            <select 
+              className="form-input shadow w-full px-3 py-2 mt-2 rounded-xl border-0 text-sm" 
               placeholder="Confirm your password"
               onChange={(e) => setWam(e.target.value)}
             >
@@ -102,7 +100,7 @@ const Details = () => {
               className="w-full px-2 py-3 rounded-xl border-0 mt-4 bg-theme-red hover:bg-[#e37876]"
               onClick={navToLandingPage}
             >
-              <p className="font-bold">Find your partnr!</p>
+            <p className="font-bold">Find your partnr!</p>
             </button>
           </div>
         </form>

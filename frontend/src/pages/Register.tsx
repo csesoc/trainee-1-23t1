@@ -51,15 +51,15 @@ const Register = () => {
       register(email, password);
       navToDetails();
     } else {
-      if (!validZid) alert('prisoner number required');
-      if (!validEmail) alert('plox gib valid email');
-      if (!validName) alert('unfortunately, you must be named');
+      if (!validZid) alert("prisoner number required");
+      if (!validEmail) alert("plox gib valid email");
+      if (!validName) alert("unfortunately, you must be named");
     }
-  };
+  }
 
   const checkZid = () => {
     const input = document.getElementById('zid-input');
-    if (zid !== '') {
+    if ((zid.toString()).length == 7) {
       if (input) {
         input.classList.remove('border-1', 'border-rose-500');
         input.classList.add('border-0');
@@ -71,8 +71,8 @@ const Register = () => {
         input.classList.add('border-1', 'border-rose-500');
       }
     }
-  };
-
+  }
+  
   const checkName = () => {
     const input = document.getElementById('name-input');
     if (name !== '') {
@@ -87,11 +87,11 @@ const Register = () => {
         input.classList.add('border-1', 'border-rose-500');
       }
     }
-  };
+  }
 
   const checkEmail = () => {
     const input = document.getElementById('email-input');
-    if (RegExp('^.+@.+..+$').test(email)) {
+    if (RegExp('^.+\@.+\..+$').test(email)) {
       if (input) {
         input.classList.remove('border-1', 'border-rose-500');
         input.classList.add('border-0');
@@ -103,7 +103,7 @@ const Register = () => {
         input.classList.add('border-1', 'border-rose-500');
       }
     }
-  };
+  }
 
   const checkPass = () => {
     const input = document.getElementById('password-input');
@@ -119,7 +119,7 @@ const Register = () => {
         setValidPass(true);
       }
     }
-  };
+  }
 
   return (
     <PageTemplate showBottomNav={false}>
@@ -188,7 +188,7 @@ const Register = () => {
         </div>
       </div>
     </PageTemplate>
-  );
-};
+  )
+}
 
 export default Register;

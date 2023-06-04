@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { AppContext } from './context/AppContext';
 import { useAuth } from './context/AuthContext';
 
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection } from 'firebase/firestore';
 import { db } from './firebase';
 
 import Details from './pages/Details';
@@ -12,15 +12,18 @@ import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Page404 from './pages/Page404';
 import Register from './pages/Register';
+import CourseSelect from './pages/CourseSelect';
+import ListPartnrs from './pages/ListPartnrs';
 import DisplayPartner from './pages/display/DisplayPartner';
 import SharedSchedule from './pages/display/SharedSchedule';
 import SharedTutes from './pages/display/SharedTutes';
 import ScheduleSelector from './components/schedulers/ScheduleSelector';
 import TuteSelector from './components/schedulers/TuteSelector';
 import EditDetails from './pages/EditDetails';
+import { CourseList } from './interfaces/courses';
 
 const App = () => {
-  const { user, setUser } = useContext(AppContext);
+  const { user, setUser, courseList, setCourseList } = useContext(AppContext);
   const { authUid } = useAuth();
 
   useEffect(() => {
@@ -38,7 +41,23 @@ const App = () => {
     fetchUserDetails();
   }, []);
 
-  console.log(user);
+  useEffect(() => {
+    const fetchCourseDetails = async () => {
+      const fetchCourses: CourseList[] = [];
+      const courseSnap = await getDocs(collection(db, "courses"));
+      courseSnap.forEach((doc) => {
+        const courseDetails = doc.data();
+        const course = {
+          code: doc.id,
+          desc: courseDetails.desc,
+          users: courseDetails.users,
+        }
+        fetchCourses.push(course);
+      });
+      setCourseList(fetchCourses);
+    }
+    fetchCourseDetails();
+  }, []);
 
   return (
     <Router>
@@ -54,6 +73,8 @@ const App = () => {
         <Route path="/users/tutes" element={<SharedTutes />} />
         <Route path="/users/schedule" element={<SharedSchedule />} />
         <Route path="/admin/auth/details/:zid" element={<Details />} />
+        <Route path="/courses/:zid" element={<CourseSelect />} />
+        <Route path="/courses/:courseId/partnrs" element={<ListPartnrs />} />
       </Routes>
     </Router>
   );

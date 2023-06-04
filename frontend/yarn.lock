@@ -712,6 +712,8 @@
 "@remix-run/router@1.6.2":
   "version" "1.6.2"
 
+<<<<<<< HEAD
+=======
 "@tailwindcss/forms@^0.5.3":
   "integrity" "sha512-y5mb86JUoiUgBjY/o6FJSFZSEttfb3Q5gllE4xoKjAAD+vBrnIhE4dViwUuow3va8mpH4s9jyUbUbrRGoRdc2Q=="
   "resolved" "https://registry.npmjs.org/@tailwindcss/forms/-/forms-0.5.3.tgz"
@@ -719,6 +721,7 @@
   dependencies:
     "mini-svg-data-uri" "^1.2.3"
 
+>>>>>>> 04145a2fb5666f3e4cb702275373196ac84849a4
 "@types/long@^4.0.1":
   "integrity" "sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA=="
   "resolved" "https://registry.npmjs.org/@types/long/-/long-4.0.2.tgz"
