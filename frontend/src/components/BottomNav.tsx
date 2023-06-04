@@ -12,14 +12,14 @@ const BottomNav = () => {
 
   return (
     <div className="bg-theme-blue fixed bottom-0 z-50 w-full">
-      <Link to={'my_profile'} className="bottom-navbar-icon">
-        <img src={profileIcon} alt="profile" width="50" />
+      <Link to={'/users/profile'} className="bottom-navbar-icon">
+        <img src={profileIcon} alt="profile" width="30" />
       </Link>
       <Link to={'/'} className="bottom-navbar-icon">
-        <img src={temp.length ? notifDotIcon : notifIcon} alt="notif" width="50" />
+        <img src={temp.length ? notifDotIcon : notifIcon} alt="notif" width="30" />
       </Link>
-      <Link to={'/frontend_aint_it'} className="bottom-navbar-icon">
-        <img src={calendarIcon} alt="calendar" width="50" />
+      <Link to={'/profile/details/edit'} className="bottom-navbar-icon">
+        <img src={calendarIcon} alt="calendar" width="30" />
       </Link>
     </div>
   );
