@@ -8,8 +8,8 @@ import { applyActionCode, User } from "firebase/auth";
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
 
-import { showTime, weekDays } from '../../components/Timetable';
-import PageTemplate from '../../components/PageTemplate';
+import { showTime, weekDays } from '../Timetable';
+import PageTemplate from '../PageTemplate';
 import { getCourseData, getCourses } from '../../data/datafns';
 
 console.log(getCourseData("COMP1531"));

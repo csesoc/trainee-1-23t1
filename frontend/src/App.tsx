@@ -15,8 +15,8 @@ import Register from './pages/Register';
 import DisplayPartner from './pages/display/DisplayPartner';
 import SharedSchedule from './pages/display/SharedSchedule';
 import SharedTutes from './pages/display/SharedTutes';
-import ScheduleSelector from './pages/schedulers/ScheduleSelector';
-import TuteSelector from './pages/schedulers/TuteSelector';
+import ScheduleSelector from './components/schedulers/ScheduleSelector';
+import TuteSelector from './components/schedulers/TuteSelector';
 import EditDetails from './pages/EditDetails';
 
 const App = () => {

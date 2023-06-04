@@ -5,10 +5,10 @@ import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import { User } from "firebase/auth";
 
-import PageTemplate from '../../components/PageTemplate';
+import PageTemplate from '../PageTemplate';
 import cross from '../../assets/cross.svg';
 import tick from '../../assets/tick.svg';
-import { showTime, weekDays } from '../../components/Timetable';
+import { showTime, weekDays } from '../Timetable';
 
 const ScheduleSelector = () => {
 	const navigate = useNavigate();
