@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import { auth, db } from '../../firebase';
-
-import folder from '../../assets/folder.svg';
-import addButton from '../../assets/addButton.svg';
-
 import { Course } from '../../types';
+
+import addButton from '../../assets/addButton.svg';
+import folder from '../../assets/folder.svg';
 
 interface Props {
   courses: Course[];
