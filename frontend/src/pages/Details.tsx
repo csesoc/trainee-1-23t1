@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-import anon from '../assets/anon.png';
-import PageTemplate from '../components/PageTemplate';
 import { AppContext } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+
+import anon from '../assets/anon.png';
+import PageTemplate from '../components/PageTemplate';
 
 const Details = () => {
   const [degree, setDegree] = useState('');

@@ -6,4 +6,8 @@
   .bottom-navbar-icon {
     @apply float-right block px-[14px] py-[16px];
   }
+
+  .landing-partner-invite-button {
+    @apply rounded-xl w-1/2 min-w-max m-1 shadow-sm;
+  }
 }
