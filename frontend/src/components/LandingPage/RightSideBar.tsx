@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import defaultPfp from '../../assets/defaultPfp.svg';
-
-import { getDocs, collection, DocumentData } from 'firebase/firestore';
+import { DocumentData, collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 import { Partner } from '../../types';

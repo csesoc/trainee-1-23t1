@@ -1,17 +1,15 @@
 import { useContext, useEffect } from 'react';
 
-import PageTemplate from '../components/PageTemplate';
-import CourseFolderList from '../components/LandingPage/CourseFolderList';
-import RightSideBar from '../components/LandingPage/RightSideBar';
-import CourseInfoList from '../components/LandingPage/CourseInfoList';
-
 import { AppContext } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
 
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-import defaultPfp from '../assets/defaultPfp.svg';
+import CourseFolderList from '../components/LandingPage/CourseFolderList';
+import CourseInfoList from '../components/LandingPage/CourseInfoList';
+import RightSideBar from '../components/LandingPage/RightSideBar';
+import PageTemplate from '../components/PageTemplate';
 
 const LandingPage = () => {
   const { user, setUser } = useContext(AppContext);
