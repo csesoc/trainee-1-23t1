@@ -3,18 +3,22 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import defaultPfp from '../../assets/defaultPfp.svg';
 
-import { getDocs, collection, DocumentData } from 'firebase/firestore';
+import { doc, getDocs, updateDoc, collection, DocumentData } from 'firebase/firestore';
+import { useAuth } from '../../context/AuthContext';
+
 import { db } from '../../firebase';
 
-import { Partner } from '../../types';
+import { Partner, RequestsUserData } from '../../types';
 
 interface Props {
   user: DocumentData | null;
+  id: string | null;
 }
 
 interface RequestsProp {
-  pendingPartners: Partner[];
+  user: DocumentData | null;
   users: any;
+  authUid: string | null;
 }
 
 const findOrdinalSuffix = (i: number) => {
@@ -60,7 +64,9 @@ const ProfileInfo = ({ user }: DocumentData) => {
   );
 };
 
-const PendingPartners = ({ pendingPartners, users }: RequestsProp) => {
+const PendingPartners = ({ user, users, authUid }: RequestsProp) => {
+  const pendingPartners: Partner[] = user?.pendingInvitations;
+
   if (!pendingPartners) {
     return <div className="bg-theme-pink flex-grow mt-5 px-4 pb-0 overflow-auto" />;
   }
@@ -69,6 +75,7 @@ const PendingPartners = ({ pendingPartners, users }: RequestsProp) => {
     const user = users[person.id];
     return {
       name: user.name,
+      id: person.id,
       handle: user.handle,
       zid: user.zid,
       photo: user.photo,
@@ -76,10 +83,26 @@ const PendingPartners = ({ pendingPartners, users }: RequestsProp) => {
     };
   });
 
+  // const onAccept = async (id: string) => {
+  //   const updateUserData = async () => {
+  //     const userRef = doc(db, 'users', authUid);
+  //     await updateDoc(userRef, { pendingInvitations: requests });
+  //   };
+
+  //   try {
+  //     const index = requests.findIndex((x) => x.id === id);
+  //     user?.parters.push({ id: requests[index].id, course: requests[index].course });
+  //     requests.splice(index, 1);
+  //     updateUserData();
+  //   } catch (e) {
+  //     alert('you broke something smh ' + e);
+  //   }
+  // };
+
   return (
     <div className="bg-theme-pink flex-grow mt-5 px-4 pb-0 overflow-auto">
-      {requests.map((request) => (
-        <div className="bg-theme-white p-2 my-3 flex flex-row overflow-visible">
+      {requests.map((request, index) => (
+        <div key={index} className="bg-theme-white p-2 my-3 flex flex-row overflow-visible">
           <Link to={`/users/${request.zid}`}>
             <img
               src={request.photo}
@@ -108,7 +131,7 @@ const PendingPartners = ({ pendingPartners, users }: RequestsProp) => {
   );
 };
 
-const RightSidebar = ({ user }: Props) => {
+const RightSidebar = ({ user, id }: Props) => {
   const [users, setUsers] = useState({});
 
   useEffect(() => {
@@ -123,10 +146,12 @@ const RightSidebar = ({ user }: Props) => {
     fetchData();
   }, []);
 
+  console.log(user);
+
   return (
     <div className="float-right w-2/5 m-10 ml-0 mb-[122px] flex flex-col max-lg:w-full max-lg:m-2 max-lg:mb[122px]">
       <ProfileInfo user={user} />
-      <PendingPartners pendingPartners={user?.pendingInvitations} users={users} />
+      <PendingPartners user={user} users={users} authUid={id} />
     </div>
   );
 };

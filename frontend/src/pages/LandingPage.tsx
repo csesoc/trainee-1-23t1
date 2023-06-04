@@ -36,7 +36,7 @@ const LandingPage = () => {
       <div className="w-full h-screen flex flex-row max-lg:flex-col max-lg:h-fit max-lg:mb-[92px] max-lg:overflow-x-hidden max-lg:w-max">
         {<CourseFolderList courses={user?.courses} />}
         {<CourseInfoList courses={user?.courses} partners={user?.partners} />}
-        {<RightSideBar user={user} />}
+        {<RightSideBar user={user} id={authUid} />}
       </div>
     </PageTemplate>
   );
