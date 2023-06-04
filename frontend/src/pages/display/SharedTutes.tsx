@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
@@ -8,12 +7,14 @@ import { User } from "firebase/auth";
 import { ColourKey } from '../../components/Timetable';
 import PageTemplate from '../../components/PageTemplate';
 import { showTime, weekDays } from '../../components/Timetable';
+import { getCourses } from '../../data/datafns';
+
 
 const SharedTutes = () => {
-	const navigate = useNavigate();
 	const [user, setUser] = useState<User | null>(null);
 	const [uTutes, setUTutes] = useState<Number[]>([]);
-	const [pTutes, setPTutes] = useState<Number[]>([1, 3, 5, 7, 50, 45]);
+	const [pTutes, setPTutes] = useState<Number[]>([1, 3, 5, 7, 50, 45, 18]);
+	const [temp, setTemp] = useState<any>([])
 
 	/**
 	 * Gets user data ONCE
@@ -36,7 +37,13 @@ const SharedTutes = () => {
 				const userSnap = await getDoc(userRef);
 
 				if (userSnap.exists()) {
-					setUTutes(userSnap.data().tutes ?? []);
+					setUTutes(userSnap.data().courses
+                      .find((x: { name: string; }) => x.name == "COMP1531")
+                      .classes.map((x: { index: any; id: any; }) => ({index: x.index, id: x.id})));
+
+					  setTemp(userSnap.data().courses
+                      .find((x: { name: string; }) => x.name == "COMP1531")
+                      .classes.map((x: { index: any; id: any; }) => ({index: x.index, id: x.id})));
 				}
 			}
 		} catch (e) {
@@ -57,6 +64,7 @@ const SharedTutes = () => {
 		return shared;
 	}
 
+	console.log(temp);
 
 	/**
 	 * renders cells upon refresh in 1 of 4 colours:
@@ -69,14 +77,14 @@ const SharedTutes = () => {
 	const showCells = () => {
 		let content = [];
 		for (let i = 0; i < 80; i++) {
-			if (uTutes.includes(i) && pTutes.includes(i)) {
+			if (temp.find((x: { index: number; }) => x.index == i) && pTutes.includes(i)) {
 				// shared tutes
 				content.push(
 					<div className="bg-theme-white hover:bg-opacity-50 rounded-md h-7">
 						<div className="h-7 w-full border-black border border-opacity-30 bg-alt-green hover:bg-lime-700"/>
 					</div>
 				);
-			} else if (uTutes.includes(i)) {
+			} else if (temp.find((x: { index: number; }) => x.index == i)) {
 				// user's tutes only
 				content.push(
 					<div className="bg-theme-white hover:bg-stone-300 rounded-md h-7">
@@ -111,17 +119,25 @@ const SharedTutes = () => {
 	 * 	-> tutes that either user has
 	 */
 	const tuteBlocks = () => {
-		const shownTutes = [];
-		let content = [];
-
-		return pTutes.map(tute => 						
-			<div className="bg-alt-green rounded-md p-2 pb-5 mb-2 text-xs">
-				<p>Brass Lab J17 305</p>
-				<p>13/25 (Weeks 1-5, 7-10)</p>
-			</div>
-		);
+		return temp.map((tute: { id: string; }) => tuteInfo(tute.id));
 	}
 
+	const tuteInfo = (code:string) => {
+    if (!(getCourses()
+        .find((x: { courseCode: string; }) => x.courseCode =="COMP1531").classes)
+        .find((x: { classID: string; }) => x.classID == code)) {return;}
+    return ( 						
+      <div className="bg-alt-green rounded-md p-2 pb-5 mb-2 text-xs">
+        <p>{(getCourses()
+          .find((x: { courseCode: string; }) => x.courseCode =="COMP1531").classes)
+          .find((x: { classID: string; }) => x.classID == code).times[0].location}</p>
+        <p>{(getCourses()
+          .find((x: { courseCode: string; }) => x.courseCode =="COMP1531").classes)
+          .find((x: { classID: string; }) => x.classID == code).times[0].weeks}</p>
+      </div>
+	);
+
+	}
 	return (
 		<PageTemplate showYellowBg={false}>
 			<div className="flex justify-center items-center w-full h-screen bg-theme-black">

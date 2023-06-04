@@ -11,7 +11,7 @@ const BottomNav = () => {
     <div className="bg-theme-blue fixed bottom-0 w-full">
       <button 
         className="bottom-navbar-icon"
-        onClick={() =>navigate('/')}>
+        onClick={() =>navigate('/users/profile')}>
         <img src={profileIcon} alt="profile" width="30" />
       </button>
       <button 
@@ -21,7 +21,7 @@ const BottomNav = () => {
       </button>
       <button 
         className="bottom-navbar-icon"
-        onClick={() =>navigate('/')}>
+        onClick={() =>navigate('/profile/details/edit')}>
         <img src={calendarIcon} alt="calendar" width="30" />
       </button>
     </div>

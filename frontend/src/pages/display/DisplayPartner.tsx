@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { doc, DocumentData, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
+import { doc, DocumentData, getDoc } from 'firebase/firestore';
 import { User } from "firebase/auth";
 
 import cross from '../../assets/cross.svg';
@@ -11,7 +11,7 @@ import PageTemplate from '../../components/PageTemplate';
 import defaultPfp from "../../assets/tempPfp.jpeg";
 
 
-export default function DisplayPartner() {
+const DisplayPartner = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [tutes, setTutes] = useState<Number[]>([]);
@@ -88,7 +88,7 @@ export default function DisplayPartner() {
 
                 <div className="flex-wrap w-2/3 md:text-left text-center m-2">
                   <p className="text-xl font-bold">{userSnap?.data().name ?? "--"}</p>
-                  <p className="text-sm opacity-60">@{userSnap?.data().username ?? userSnap?.data().name ?? "--"}</p>
+                  <p className="text-sm opacity-60">@{userSnap?.data().handle ?? userSnap?.data().name ?? "--"}</p>
                   <p className="text-sm">{userSnap?.data().bio ?? userSnap?.data().degree ?? ""}</p>
                 </div>
                 
@@ -114,7 +114,7 @@ export default function DisplayPartner() {
 
                   <div className="m-4 w-1/4 text-center">
                     <p className="text-xs">preferred platforms: </p>
-                    <p>{userSnap?.data().platform ?? "--"}</p>
+                    <p>{userSnap?.data().comms ?? "--"}</p>
                   </div>
 
                 </div>
@@ -161,3 +161,4 @@ export default function DisplayPartner() {
     </PageTemplate>
   );
 }
+export default DisplayPartner;
